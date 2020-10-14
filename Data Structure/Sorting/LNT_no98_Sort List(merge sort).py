@@ -1,3 +1,5 @@
+# The same problem as Leetcode 148. Sort List
+
 """
 Definition of ListNode
 class ListNode(object):
@@ -5,50 +7,46 @@ class ListNode(object):
         self.val = val
         self.next = next
 """
-from random import randint
 class Solution:
     """
     @param head: The head of linked list.
     @return: You should return the head of the sorted linked list, using constant space complexity.
     """
-    def sortList(self, head):
-
+    def sortList(self, head: ListNode) -> ListNode:
         if not head or not head.next:
             return head
-
-        fast, slow = head, head
-
+        
+        fast = slow = head
+        
         while fast.next and fast.next.next:
-            fast = fast.next.next
             slow = slow.next
-
+            fast = fast.next.next
+            
         mid = slow.next
         slow.next = None
-
-        list_1 = self.sortList(head)
-        list_2 = self.sortList(mid)
-        list_merged = self.merge(list_1, list_2)
-
-        return list_merged
-
-    def merge(self, list_1, list_2):
-
+        
+        lst_1 = self.sortList(head)
+        lst_2 = self.sortList(mid)
+        merged = self.merge(lst_1, lst_2)
+        
+        return merged
+    
+    def merge(self, lst_1, lst_2):
         dummy = ListNode(0)
         temp = dummy
-
-        while list_1 and list_2:
-            if list_1.val < list_2.val:
-                temp.next = list_1
-                temp = temp.next
-                list_1 = list_1.next
+        
+        while lst_1 and lst_2:
+            if lst_1.val < lst_2.val:
+                temp.next = lst_1
+                lst_1 = lst_1.next
             else:
-                temp.next = list_2
-                temp = temp.next
-                list_2 = list_2.next
-
-        if not list_1:
-            temp.next = list_2
-        if not list_2:
-            temp.next = list_1
-
+                temp.next = lst_2
+                lst_2 = lst_2.next
+            temp = temp.next
+        
+        if lst_1:
+            temp.next = lst_1
+        if lst_2:
+            temp.next = lst_2
+        
         return dummy.next
