@@ -1,3 +1,5 @@
+# The same as Leetcode no111. Minimum Depth of Binary Tree
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -13,26 +15,14 @@ class Solution:
     @return: An integer
     """
 
-    def minDepth(self, root):
-        if not root:
-            return 0
-
-        min_depth = self.get_depth(root)
-        return min_depth
-
-    def get_depth(self, root):
-
-        if root.left and root.right:
-            left_depth = self.get_depth(root.left)
-            right_depth = self.get_depth(root.right)
-            return min(left_depth, right_depth) + 1
-
-        elif root.left:
-            return self.get_depth(root.left) + 1
-        elif root.right:
-            return self.get_depth(root.right) + 1
-        else:
-            return 1
+    def minDepth(self, root: TreeNode) -> int:
+        if not root: return 0
+        if not root.left and not root.right: return 1
+        
+        if root.left and not root.right: return 1 + self.minDepth(root.left)
+        if root.right and not root.left: return 1 + self.minDepth(root.right)
+        
+        return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
 
 
 
