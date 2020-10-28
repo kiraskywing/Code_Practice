@@ -1,3 +1,5 @@
+# The same as Leetcode no142 Linked List Cycle II
+
 """
 Definition of ListNode
 class ListNode(object):
@@ -16,18 +18,16 @@ class Solution:
         if not head or not head.next:
             return None
 
-        slow, fast = head, head
+        slow = fast = head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-            if slow == fast:
-                break
+            if slow == fast: break
 
         if slow == fast:
             slow = head
             while slow != fast:
-                slow = slow.next
-                fast = fast.next
+                slow, fast = slow.next, fast.next
             return slow
 
         return None
