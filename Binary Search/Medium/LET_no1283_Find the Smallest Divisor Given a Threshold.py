@@ -1,3 +1,5 @@
+# The same as Leetcode no1283_Find the Smallest Divisor Given a Threshold
+
 class Solution:
     def smallestDivisor(self, nums: List[int], threshold: int) -> int:
         left, right = 1, max(nums)
