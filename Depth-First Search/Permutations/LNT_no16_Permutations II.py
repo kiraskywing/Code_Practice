@@ -1,3 +1,5 @@
+# The same as Leetcode no47_Permutations II
+
 class Solution:
     """
     @param: :  A list of integers
