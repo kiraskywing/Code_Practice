@@ -1,3 +1,5 @@
+# The same as Leetcode no81. Search in Rotated Sorted Array II
+
 class Solution:
     """
     @param A: an integer ratated sorted array and duplicates are allowed
