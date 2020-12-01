@@ -1,29 +1,17 @@
+# The same as Leetcode no.22 Generate Parentheses
+
 class Solution:
-    """
-    @param n: n pairs
-    @return: All combinations of well-formed parentheses
-    """
-
-    def generateParenthesis(self, n):
-        if n == 0:
-            return []
-
-        result = []
-        self.dfs(n, n, [], result)
-        return result
-
-    def dfs(self, left, right, temp, result):
-        if left > right:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
+        self.helper(res, "", 0, 0, n)
+        return res
+    
+    def helper(self, res, string, left_used, right_used, length):
+        if len(string) == length * 2:
+            res.append(string)
             return
-
-        if left == 0 and right == 0:
-            result.append(''.join(temp))
-
-        if left > 0:
-            temp.append("(")
-            self.dfs(left - 1, right, temp, result)
-            temp.pop()
-        if right > 0:
-            temp.append(")")
-            self.dfs(left, right - 1, temp, result)
-            temp.pop()
+        
+        if left_used < length:
+            self.helper(res, string + '(', left_used + 1, right_used, length)
+        if right_used < left_used:
+            self.helper(res, string + ')', left_used, right_used + 1, length)
