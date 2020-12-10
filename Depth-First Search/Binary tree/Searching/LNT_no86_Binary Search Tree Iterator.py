@@ -1,3 +1,5 @@
+# Simialr with Leetcode no.173 Binary Search Tree Iterator
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -30,7 +32,6 @@ class BSTIterator:
     """
 
     def hasNext(self, ):
-
         return bool(self.stack)
 
     """
@@ -38,7 +39,6 @@ class BSTIterator:
     """
 
     def next(self, ):
-
         node = self.stack.pop()
         next_node = node
         if node.right:
