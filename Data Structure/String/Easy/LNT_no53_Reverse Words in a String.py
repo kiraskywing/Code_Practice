@@ -4,6 +4,8 @@ class Solution:
     @return: A string
     """
     def reverseWords(self, s):
+        return ' '.join(reversed(s.split()))
+        
         """
         r = s.split()
         p = ''
@@ -17,5 +19,3 @@ class Solution:
 
             return p[0:-1]
         """
-
-        return ' '.join(reversed(s.split()))

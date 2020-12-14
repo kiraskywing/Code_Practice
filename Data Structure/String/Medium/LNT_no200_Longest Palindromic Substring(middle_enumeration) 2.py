@@ -26,7 +26,7 @@ class Solution:
     def is_longestPalindrome(self, string, left, right):
 
         while left >= 0 and right < len(string) and string[left] == string[right]:
-            left -= 1;
+            left -= 1
             right += 1
 
         return string[left + 1: right]

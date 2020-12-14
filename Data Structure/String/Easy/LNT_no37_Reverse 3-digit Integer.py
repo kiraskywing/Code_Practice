@@ -4,8 +4,6 @@ class Solution:
     @return: Reversed number.
     """
     def reverseInteger(self, number):
-
-
         return int(str(number)[::-1])
 
         """
