@@ -1,26 +1,21 @@
+# The same as Leetcode no131 Palindrome Partitioning
+
 class Solution:
-    """
-    @param: s: A string
-    @return: A list of lists of string
-    """
-
-    def partition(self, s):
-
-        result = []
-        self.dfs(result, [], s)
-        return result
-
-    def dfs(self, result, path, string):
-
-        if len(string) == 0:
-            result.append(path[:])
+    def partition(self, s: str) -> List[List[str]]:
+        res = []
+        self.dfs(res, [], s)
+        return res
+    
+    def dfs(self, res, temp, s):
+        if not s:
+            res.append(temp[:])
             return
-
-        for i in range(1, len(string) + 1):
-            if self.is_palindrome(string[:i]):
-                path.append(string[:i])
-                self.dfs(result, path, string[i:])
-                path.pop()
-
-    def is_palindrome(self, string):
-        return string == string[::-1]
+        
+        for i in range(1, len(s) + 1):
+            if self.is_palindrome(s[:i]):
+                temp.append(s[:i])
+                self.dfs(res, temp, s[i:])
+                temp.pop()
+    
+    def is_palindrome(self, s):
+        return s == s[::-1]
