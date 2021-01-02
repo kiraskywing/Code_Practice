@@ -1,8 +1,14 @@
 class Solution:
     def canFormArray(self, arr: List[int], pieces: List[List[int]]) -> bool:
-        temp = {x[0]: x for x in pieces}
-        res = []
-        for n in arr:
-            res += temp.get(n, [])
+        record = {piece[0]: piece for piece in pieces}
         
-        return res == arr
+        i = 0
+        while i < len(arr):
+            if arr[i] in record:
+                num = arr[i]
+                for j in range(len(record[num])):
+                    if arr[i] != record[num][j]:
+                        return False
+                    i += 1
+            else: return False
+        return True
