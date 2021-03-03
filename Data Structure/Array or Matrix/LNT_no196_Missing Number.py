@@ -1,4 +1,15 @@
-class Solution:
+# The same as LeetCode no.268. Missing Number
+class Solution1:
+    def missingNumber(self, nums: List[int]) -> int:
+        res = len(nums)
+        i = 0
+        for num in nums:
+            res ^= num
+            res ^= i
+            i += 1
+        return res
+
+class Solution2:
     """
     @param nums: An array of integers
     @return: An integer
