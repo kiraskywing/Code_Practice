@@ -1,3 +1,5 @@
+# The same as LeetCode no.160 Intersection of Two Linked Lists
+
 """
 Definition of ListNode
 class ListNode(object):
