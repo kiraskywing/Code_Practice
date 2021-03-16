@@ -4,6 +4,20 @@ SELECT FirstName, LastName, City, State FROM Person LEFT JOIN Address ON Person.
 -- no176. Second Highest Salary
 SELECT MAX(Salary) as SecondHighestSalary FROM Employee WHERE Salary < (SELECT MAX(Salary) FROM Employee);
 
+-- no177. Nth Highest Salary
+CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
+BEGIN
+DECLARE M INT;
+SET M = N - 1;
+  RETURN (
+      select distinct Salary from Employee order by Salary desc limit M, 1
+  );
+END
+
+-- no178. Rank Scores
+select s1.Score, count(s2.Score) as "Rank" from Scores s1, (select distinct Score from Scores) s2
+where s1.Score <= s2.Score group by s1.Id order by s1.Score desc
+
 -- no181. Employees Earning More Than Their Managers
 select A.Name as Employee from Employee as A inner join Employee as B on A.ManagerId = B.Id where A.Salary > B.Salary;
 
