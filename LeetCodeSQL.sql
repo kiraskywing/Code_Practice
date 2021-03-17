@@ -18,6 +18,9 @@ END
 select s1.Score, count(s2.Score) as "Rank" from Scores s1, (select distinct Score from Scores) s2
 where s1.Score <= s2.Score group by s1.Id order by s1.Score desc
 
+-- no180. Consecutive Numbers
+select distinct A.num as ConsecutiveNums from Logs A, Logs B, Logs C where A.id = B.id - 1 and B.id = C.id - 1 and A.num = B.num and B.num = C.num;
+
 -- no181. Employees Earning More Than Their Managers
 select A.Name as Employee from Employee as A inner join Employee as B on A.ManagerId = B.Id where A.Salary > B.Salary;
 
@@ -27,6 +30,15 @@ select Email from Person group by Email having count(Email) > 1;
 -- no183. Customers Who Never Order
 select Name as Customers from Customers Where Id not in (select CustomerId from Orders);
 select A.Name as Customers from Customers A left join Orders B on A.Id = B.CustomerId Where B.CustomerId is null;
+
+-- no184. Department Highest Salary
+select D.Name as Department, E.Name as Employee, T.max_S as Salary
+from
+    Employee as E,
+    (select DepartmentId, max(Salary) as max_S from Employee group by DepartmentId) as T,
+    Department as D
+where 
+    E.DepartmentId = T.DepartmentId and E.Salary = T.max_S and T.DepartmentId = D.Id;
 
 -- no196. Delete Duplicate Emails
 delete A from Person A, Person B where A.Email = B.Email and A.Id > B.Id;
