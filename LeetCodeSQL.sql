@@ -40,12 +40,25 @@ from
 where 
     E.DepartmentId = T.DepartmentId and E.Salary = T.max_S and T.DepartmentId = D.Id;
 
+-- no185. Department Top Three Salaries
+select D.Name as Department, E.Name as Employee, E.Salary 
+from Employee E inner join Department as D on E.DepartmentId = D.Id
+where 3 > (select count(distinct Salary) from Employee E2 where E2.Salary > E.Salary and E.DepartmentId = E2.DepartmentId);
+
 -- no196. Delete Duplicate Emails
 delete A from Person A, Person B where A.Email = B.Email and A.Id > B.Id;
 delete from Person where Id not in (select sub_Id from (select min(id) as sub_Id from Person group by Email) as subquery);
 
 -- no197. Rising Temperature
 select cur.id as Id from Weather cur left join Weather pre on pre.recordDate + interval 1 day = cur.recordDate where cur.Temperature > pre.Temperature;
+
+-- no262. Trips and Users
+select Request_at as Day, round(sum(if(Status != 'completed', 1, 0)) / count(*), 2) as 'Cancellation Rate'
+from Trips
+where (Request_at between '2013-10-01' and '2013-10-03')
+    and Client_Id not in (select Users_Id from Users where Banned = 'Yes')
+    and Driver_Id not in (select Users_Id from Users where Banned = 'Yes')
+group by Request_at
 
 -- no595. Big Countries
 select name, population, area from World where area > 3000000 or population > 25000000;
