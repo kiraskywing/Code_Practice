@@ -66,8 +66,25 @@ select name, population, area from World where area > 3000000 or population > 25
 -- no596. Classes More Than 5 Students
 select class from courses group by class having count(distinct student) >= 5;
 
+-- no601. Human Traffic of Stadium
+select distinct s1.* from Stadium s1, Stadium s2, Stadium s3
+where ((s1.id + 1 = s2.id and s1.id + 2 = s3.id) or
+      (s1.id - 1 = s2.id and s1.id + 1 = s3.id) or
+      (s1.id - 2 = s2.id and s1.id - 1 = s3.id))
+      and s1.people >= 100 and s2.people >= 100 and s3.people >= 100
+      order by s1.id;
+
 -- no620. Not Boring Movies
 select * from cinema where id % 2 != 0 and description != 'boring' order by rating desc;
+
+-- no626. Exchange Seats
+select 
+case when seat.id % 2 != 0 and seat.id = (select count(*) from seat) then seat.id
+     when seat.id % 2 = 0 then seat.id - 1
+     else seat.id + 1 
+     end as id,
+student
+from seat order by id;
 
 -- no627. Swap Salary
 update Salary set sex = (case when sex = 'f' then 'm' else 'f' end);
