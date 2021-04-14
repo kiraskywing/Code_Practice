@@ -1,3 +1,5 @@
+# The same as LeetCode no341. Flatten Nested List Iterator
+
 """
 This is the interface that allows for creating nested lists.
 You should not implement it, or speculate about its implementation
