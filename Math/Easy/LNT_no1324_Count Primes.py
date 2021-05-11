@@ -1,3 +1,5 @@
+# The same as LeetCode no204. Count Primes
+
 class Solution:
     """
     @param n: a integer
