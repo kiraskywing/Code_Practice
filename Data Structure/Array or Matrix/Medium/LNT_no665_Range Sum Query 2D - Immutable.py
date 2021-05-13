@@ -1,3 +1,5 @@
+# The same as LeetCode no304. Range Sum Query 2D - Immutable
+
 class NumMatrix:
     """
     @param: matrix: a 2D matrix
