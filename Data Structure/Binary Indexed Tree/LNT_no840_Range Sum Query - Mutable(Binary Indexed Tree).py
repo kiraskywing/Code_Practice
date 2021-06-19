@@ -1,3 +1,5 @@
+# The same as LeetCode no307. Range Sum Query - Mutable
+
 class NumArray:
 
     def __init__(self, nums):
