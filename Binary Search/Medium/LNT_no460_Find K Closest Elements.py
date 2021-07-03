@@ -1,54 +1,38 @@
+# The same as LeetCode no658. Find K Closest Elements
+
 class Solution:
-    """
-    @param A: an integer array
-    @param target: An integer
-    @param k: An integer
-    @return: an integer array
-    """
-
-    def kClosestNumbers(self, A, target, k):
-
-        right = self.find_upper_closest(A, target)
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        right = self.find_upper(arr, x)
         left = right - 1
-
         res = []
-
+        
         for _ in range(k):
-
-            if self.left_is_closer(A, target, left, right):
-                res.append(A[left])
+            if self.choose_left(arr, left, right, x):
+                res.append(arr[left])
                 left -= 1
-
             else:
-                res.append(A[right])
+                res.append(arr[right])
                 right += 1
-
-        return res
-
-    def find_upper_closest(self, nums, target):
-
-        start, end = 0, len(nums) - 1
-
-        while start + 1 < end:
-            mid = (start + end) // 2
-
-            if nums[mid] >= target:
-                end = mid
+        
+        return sorted(res)
+    
+    def find_upper(self, arr, target):
+        left, right = 0, len(arr) - 1
+        
+        while left + 1 < right:
+            mid = (left + right) // 2
+            if arr[mid] >= target:
+                right = mid
             else:
-                start = mid
-
-        if nums[start] >= target:
-            return start
-        if nums[end] >= target:
-            return end
-
-        return end
-
-    def left_is_closer(self, nums, target, left, right):
-
+                left = mid
+        
+        if arr[left] >= target:
+            return left
+        return right
+    
+    def choose_left(self, arr, left, right, target):
         if left < 0:
             return False
-        if right >= len(nums):
+        if right >= len(arr):
             return True
-
-        return target - nums[left] <= nums[right] - target
+        return target - arr[left] <= arr[right] - target
