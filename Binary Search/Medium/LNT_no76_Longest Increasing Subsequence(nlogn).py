@@ -1,3 +1,5 @@
+# The same as LeetCode no300. Longest Increasing Subsequence
+
 class Solution:
     """
     @param nums: An integer array
@@ -13,6 +15,7 @@ class Solution:
 
         for i in range(len(nums)):
             index = self.binarysearch(minlast, nums[i])
+            # i = bisect.bisect_left(minlast, num[i])
             minlast[index] = nums[i]
 
         for i in range(len(nums), 0, -1):
