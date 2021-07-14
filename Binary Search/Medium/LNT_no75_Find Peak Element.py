@@ -1,3 +1,5 @@
+# The same as LeetCode no162. Find Peak Element
+
 class Solution:
     """
     @param A: An integers array.
