@@ -1,36 +1,26 @@
-# The same as LeetCode no236. Lowest Common Ancestor of a Binary Tree
+# The same as LeetCode no235. Lowest Common Ancestor of a Binary Search Tree
 
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
-
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
 class Solution:
-    """
-    @param: root: The root of the binary search tree.
-    @param: A: A TreeNode in a Binary.
-    @param: B: A TreeNode in a Binary.
-    @return: Return the least common ancestor(LCA) of the two nodes.
-    """
-
-    def lowestCommonAncestor(self, root, A, B):
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if not root:
             return None
-
-        if root == A or root == B:
+        if root == p or root == q:
             return root
-
-        left_find = self.lowestCommonAncestor(root.left, A, B)
-        right_find = self.lowestCommonAncestor(root.right, A, B)
-
-        if left_find and right_find:
+        
+        left_found = self.lowestCommonAncestor(root.left, p, q)
+        right_found = self.lowestCommonAncestor(root.right, p, q)
+        
+        if left_found and right_found:
             return root
-        if left_find:
-            return left_find
-        if right_find:
-            return right_find
+        if left_found:
+            return left_found
+        if right_found:
+            return right_found
         return None
