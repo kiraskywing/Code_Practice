@@ -1,3 +1,5 @@
+# The same as LeetCode no1. Two Sum
+
 class Solution:
     """
     @param Numbers: An array of Integer
