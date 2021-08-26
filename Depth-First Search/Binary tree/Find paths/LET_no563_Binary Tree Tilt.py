@@ -1,3 +1,5 @@
+# The same as LintCode no1172_Binary Tree Tilt
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
