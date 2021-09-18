@@ -1,3 +1,5 @@
+# The same as LeetCode no350_Intersection of Two Arrays II
+
 class Solution:
     """
     @param nums1: an integer array
