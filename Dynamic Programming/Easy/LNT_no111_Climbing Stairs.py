@@ -1,3 +1,5 @@
+# The same as LeetCode no70. Climbing Stairs
+
 class Solution:
     """
     @param n: An integer
