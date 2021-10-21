@@ -1,5 +1,6 @@
-import random
+# the same as LeetCode no380_Insert Delete GetRandom O(1)
 
+import random
 
 class RandomizedSet:
 
