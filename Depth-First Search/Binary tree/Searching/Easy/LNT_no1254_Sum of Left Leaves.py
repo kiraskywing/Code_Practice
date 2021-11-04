@@ -1,3 +1,5 @@
+# The same as LeetCode no404. Sum of Left Leaves
+
 """
 Definition of TreeNode:
 class TreeNode:
