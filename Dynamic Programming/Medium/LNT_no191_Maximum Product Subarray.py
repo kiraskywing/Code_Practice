@@ -1,3 +1,5 @@
+# the same as LeetCode no152. Maximum Product Subarray
+
 class Solution:
     """
     @param nums: An array of integers
