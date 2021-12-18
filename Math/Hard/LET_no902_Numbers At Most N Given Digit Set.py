@@ -1,14 +1,20 @@
 class Solution:
     def atMostNGivenDigitSet(self, digits: List[str], n: int) -> int:
-        n = str(n)
+        target = str(n)
+        targetSize, dSize = len(target), len(digits)
+        res = 0
         
-        res = sum(len(digits) ** i for i in range(1, len(n)))
+        for i in range(1, targetSize):
+            res += dSize ** i
         
-        i = 0
-        while i < len(n):
-            res += sum(d < n[i] for d in digits) * (len(digits) ** (len(n) - 1 - i))
-            if n[i] not in digits:
-                break
-            i += 1
+        for i in range(targetSize):
+            hasSame = False
+            for d in digits:
+                if d < target[i]:
+                    res += dSize ** (targetSize - i - 1)
+                elif d == target[i]:
+                    hasSame = True
+            if not hasSame:
+                return res
         
-        return res + (i == len(n))
+        return res + 1
