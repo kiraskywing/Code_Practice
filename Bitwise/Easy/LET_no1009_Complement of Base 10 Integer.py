@@ -1,6 +1,7 @@
 class Solution:
-    def bitwiseComplement(self, N: int) -> int:
-        x = 1
-        while x < N:
-            x = x * 2 + 1
-        return x - N
+    def bitwiseComplement(self, n: int) -> int:
+        res = 1
+        while res < n:
+            res = (res << 1) + 1
+            
+        return res ^ n
