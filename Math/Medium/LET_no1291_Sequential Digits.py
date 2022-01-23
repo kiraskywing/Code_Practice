@@ -1,11 +1,12 @@
 class Solution:
     def sequentialDigits(self, low: int, high: int) -> List[int]:
-        ans = []
-        for i in range(1, 10):
-            start, num = i, i
-            while num <= high and start < 10:
-                if num >= low:
-                    ans.append(num)
-                start += 1
-                num = num * 10 + start
-        return sorted(ans)
+        res = []
+        queue = collections.deque(range(1, 10))
+        while queue:
+            cur = queue.popleft()
+            if low <= cur <= high:
+                res.append(cur)
+            last = cur % 10
+            if last + 1 < 10:
+                queue.append(cur * 10 + last + 1)
+        return res
