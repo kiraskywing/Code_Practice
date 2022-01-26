@@ -2,19 +2,15 @@
 
 class Solution:
     def longestPalindrome(self, s: str) -> int:
-        if len(s) < 2:
-            return len(s)
-        
-        odd = []
-        res = 0
-        
-        for key, value in collections.Counter(s).items():
-            if value % 2 == 0:
-                res += value
-            else:
-                odd.append(value)
-        
-        if len(odd) > 0:
-            res += sum(odd) - (len(odd) - 1)
+        if not s:
+            return 0
+
+        res, odds = 0, 0
+        for num in collections.Counter(s).values():
+            res += num
+            if num % 2:
+                odds += 1
+        if odds:
+            res -= odds - 1
         
         return res
