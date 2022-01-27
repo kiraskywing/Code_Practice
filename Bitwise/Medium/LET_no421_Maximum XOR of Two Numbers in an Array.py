@@ -1,12 +1,12 @@
 class Solution:
     def findMaximumXOR(self, nums: List[int]) -> int:
-        ans = 0
-        for i in reversed(range(32)):
-            prefixes = set([x >> i for x in nums])
-            ans <<= 1
-            cur = ans + 1
-            for p in prefixes:
-                if cur ^ p in prefixes:
-                    ans = cur
+        res, mask = 0, 0
+        for i in range(31, -1, -1):
+            mask |= 1 << i
+            prefix = set([num & mask for num in nums])
+            start = res | 1 << i
+            for pre in prefix:
+                if start ^ pre in prefix:
+                    res = start
                     break
-        return ans
+        return res
