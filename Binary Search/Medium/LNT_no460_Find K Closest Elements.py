@@ -14,7 +14,7 @@ class Solution:
                 res.append(arr[right])
                 right += 1
         
-        return sorted(res)
+        return res
     
     def find_upper(self, arr, target):
         left, right = 0, len(arr) - 1

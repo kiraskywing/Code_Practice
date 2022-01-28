@@ -1,3 +1,5 @@
+# The same as LeetCode no278. First Bad Version
+
 # class SVNRepo:
 #    @classmethod
 #    def isBadVersion(cls, id)

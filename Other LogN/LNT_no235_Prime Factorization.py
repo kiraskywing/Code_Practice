@@ -5,23 +5,13 @@ class Solution:
     """
 
     def primeFactorization(self, num):
+        res = []
+        up = int(num ** 0.5) + 1
+        for i in range(2, up):
+            while num % i == 0:
+                res.append(i)
+                num //= i
+        if num > 1:
+            res.append(num)
 
-        upper_bound = int(num ** 0.5) + 1
-        visited_f = [False] * upper_bound
-        prime = []
-
-        for i in range(2, upper_bound):
-            if not visited_f[i]:
-                prime.append(i)
-                for j in range(i * i, upper_bound, i):
-                    visited_f[j] = True
-
-        result = []
-        for a in prime:
-            while num % a == 0:
-                result.append(a)
-                num //= a
-        if num != 1:
-            result.append(num)
-
-        return result
+        return res

@@ -1,3 +1,5 @@
+# The same as LeetCode no50. Pow(x, n)
+
 class Solution:
     """
     @param x {float}: the base number
