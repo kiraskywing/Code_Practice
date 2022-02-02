@@ -16,8 +16,8 @@ class Solution:
         while left < right:
             value = nums[left] + nums[right]
             if value == target:
-                count += 1;
-                left += 1;
+                count += 1
+                left += 1
                 right -= 1
                 while left < right and nums[right] == nums[right + 1]:
                     right -= 1
