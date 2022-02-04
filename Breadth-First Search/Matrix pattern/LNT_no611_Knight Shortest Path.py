@@ -6,41 +6,33 @@ class Point:
         self.y = b
 """
 
-
 class Solution:
     """
     @param grid: a chessboard included 0 (false) and 1 (true)
     @param source: a point
     @param destination: a point
-    @return: the shortest path
+    @return: the shortest path 
     """
-
     def shortestPath(self, grid, source, destination):
-
-        directs = [(2, 1), (2, -1), (-2, 1), (-2, -1), (1, 2), (1, -2), (-1, 2), (-1, -2)]
+        if not grid or not grid[0]:
+            return -1
+        
+        steps = 0
         queue = collections.deque([(source.x, source.y)])
-        distance = {(source.x, source.y): 0}
-
+        grid[source.x][source.y] = 1
+        m, n = len(grid), len(grid[0])
         while queue:
-            x, y = queue.popleft()
-            if (x, y) == (destination.x, destination.y):
-                return distance[(x, y)]
-
-            for (dx, dy) in directs:
-                new_x, new_y = x + dx, y + dy
-
-                if not self.is_valid(grid, new_x, new_y, distance):
-                    continue
-
-                distance[(new_x, new_y)] = distance[(x, y)] + 1
-                queue.append((new_x, new_y))
+            for _ in range(len(queue)):
+                i, j = queue.popleft()
+                if i == destination.x and j == destination.y:
+                    return steps
+                
+                for di, dj in [(1, 2), (1, -2), (-1, 2), (-1, -2), (2, 1), (2, -1), (-2, 1), (-2, -1)]:
+                    i2, j2 = i + di, j + dj
+                    if 0 <= i2 < m and 0 <= j2 < n and grid[i2][j2] == 0:
+                        queue.append((i2, j2))
+                        grid[i2][j2] = 1
+            
+            steps += 1
 
         return -1
-
-    def is_valid(self, grid, x, y, distance):
-        if not (0 <= x < len(grid) and 0 <= y < len(grid[0])):
-            return False
-        if (x, y) in distance:
-            return False
-
-        return not grid[x][y]
