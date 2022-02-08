@@ -1,3 +1,5 @@
+# The same as LeetCode no305. Number of Islands II
+
 """
 Definition for a point.
 class Point:
@@ -6,7 +8,6 @@ class Point:
         self.y = b
 """
 
-
 class Solution:
     """
     @param n: An integer
@@ -14,46 +15,41 @@ class Solution:
     @param operators: an array of point
     @return: an integer array
     """
-
     def numIslands2(self, n, m, operators):
-        result = []
-        island = set()
-        father = dict()
+        label = 1
         self.size = 0
-
-        for pos in operators:
-            x, y = pos.x, pos.y
-            if (x, y) in island:
-                result.append(self.size)
+        grid = [[0 for _ in range(m)] for _ in range(n)]
+        res = []
+        parent = dict()
+        
+        for p in operators:
+            i, j = p.x, p.y
+            if grid[i][j] != 0:
+                res.append(self.size)
                 continue
-
-            island.add((x, y))
-            father[(x, y)] = (x, y)
+            
+            grid[i][j] = label
+            parent[label] = label
             self.size += 1
-
-            for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
-                x2, y2 = x + dx, y + dy
-                if (x2, y2) in island:
-                    self.union(father, (x, y), (x2, y2))
-
-            result.append(self.size)
-
-        return result
-
-    def union(self, father, point_a, point_b):
-        root_a = self.find_root(father, point_a)
-        root_b = self.find_root(father, point_b)
-        if root_a != root_b:
-            father[root_b] = root_a
+            
+            for di, dj in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                i2, j2 = i + di, j + dj
+                if 0 <= i2 < n and 0 <= j2 < m:
+                    if grid[i2][j2] != 0:
+                        self.union(parent, grid[i2][j2], label)
+            
+            label += 1
+            res.append(self.size)
+        
+        return res
+    
+    def find(self, parent, i):
+        if i != parent[i]:
+            parent[i] = self.find(parent, parent[i])
+        return parent[i]
+    
+    def union(self, parent, i, j):
+        pi, pj = self.find(parent, i), self.find(parent, j)
+        if pi != pj:
+            parent[pj] = pi
             self.size -= 1
-
-    def find_root(self, father, point):
-        path = []
-        while point != father[point]:
-            path.append(point)
-            point = father[point]
-
-        for p in path:
-            father[p] = point
-
-        return point
