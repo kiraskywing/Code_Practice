@@ -14,33 +14,22 @@ class Solution:
     # @param {TreeNode} root the root of binary tree
     # @return {ListNode[]} a lists of linked list
     def binaryTreeToLists(self, root):
-
         if not root:
             return []
-
-        from queue import Queue
-
-        temp = Queue()
-        temp.put(root)
+        
         res = []
-
-        while not temp.empty():
-
-            n = temp.qsize()
+        queue = collections.deque([root])
+        while queue:
             dummy = ListNode(-1)
-            cur = dummy
-
-            for i in range(n):
-
-                node = temp.get()
-                cur.next = ListNode(node.val)
-                cur = cur.next
-
-                if node.left:
-                    temp.put(node.left)
-                if node.right:
-                    temp.put(node.right)
-
+            head = dummy
+            for _ in range(len(queue)):
+                cur = queue.popleft()
+                head.next = ListNode(cur.val)
+                head = head.next
+                if cur.left:
+                    queue.append(cur.left)
+                if cur.right:
+                    queue.append(cur.right)
             res.append(dummy.next)
-
+        
         return res
