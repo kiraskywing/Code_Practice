@@ -1,4 +1,4 @@
-# The same as LeetCode no235. Lowest Common Ancestor of a Binary Search Tree
+# The same as LeetCode no236. Lowest Common Ancestor of a Binary Tree
 
 # Definition for a binary tree node.
 # class TreeNode:

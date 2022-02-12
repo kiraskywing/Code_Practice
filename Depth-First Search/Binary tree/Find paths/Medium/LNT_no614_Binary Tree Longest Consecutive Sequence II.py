@@ -1,3 +1,5 @@
+# The same as LeetCode no549. Binary Tree Longest Consecutive Sequence II
+
 """
 Definition of TreeNode:
 class TreeNode:
@@ -24,7 +26,7 @@ class Solution:
         left_len, left_up, left_down = self.traverse(root.left)
         right_len, right_up, right_down = self.traverse(root.right)
 
-        up, down = 0, 0
+        up, down = 1, 1
 
         if root.left and root.val - root.left.val == 1:
             up = max(up, left_up + 1)
@@ -36,7 +38,7 @@ class Solution:
         if root.right and root.right.val - root.val == 1:
             down = max(down, right_down + 1)
 
-        length = up + 1 + down
+        length = up + down - 1
         length = max(length, left_len, right_len)
 
         return length, up, down
