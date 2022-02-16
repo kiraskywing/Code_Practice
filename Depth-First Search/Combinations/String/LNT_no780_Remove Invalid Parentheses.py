@@ -1,3 +1,5 @@
+# The same as LeetCode no301. Remove Invalid Parentheses
+
 class Solution:
     """
     @param s: The input string
