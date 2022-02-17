@@ -1,3 +1,5 @@
+# The same as LeetCode no291. Word Pattern II
+
 class Solution:
     """
     @param pattern: a string,denote pattern string

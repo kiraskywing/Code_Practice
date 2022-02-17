@@ -1,35 +1,27 @@
 # The same as LeetCode no52. N-Queens II
 
 class Solution:
-    """
-    @param n: The number of queens.
-    @return: The total number of distinct solutions.
-    """
-
-    def totalNQueens(self, n):
-
-        visited, result = {}, []
-        self.dfs(0, visited, n, result)
-        return sum(result)
-
-    def dfs(self, row, visited, n, result):
+    def totalNQueens(self, n: int) -> int:
+        return self.dfs(0, n, [])
+    
+    def dfs(self, row, n, temp):
         if row == n:
-            result.append(1)
-            return
-
+            return 1
+        
+        cur = 0
         for col in range(n):
-            if col in visited:
-                continue
-            if self.attack(row, col, visited):
-                continue
-
-            visited[col] = row
-            self.dfs(row + 1, visited, n, result)
-            del visited[col]
-
-    def attack(self, row, col, visited):
-        for c in visited:
-            if col - c == row - visited[c] or col - c == -(row - visited[c]):
-                return True
-
-        return False
+            if self.valid(row, col, temp):
+                temp.append(col)
+                cur += self.dfs(row + 1, n, temp)
+                temp.pop()
+        return cur
+                
+    def valid(self, r, c, temp):
+        for r2, c2 in enumerate(temp):
+            if c == c2:
+                return False
+            if r + c == r2 + c2:
+                return False
+            if r - c == r2 - c2:
+                return False
+        return True
