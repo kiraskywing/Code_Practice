@@ -10,7 +10,7 @@ class Solution:
             count = 0
             for j in range(i + 1, len(A)):
                 if A[i] > A[j]:
-                    count +=1
+                    count += 1
             result += factor * count
-            factor *= len(A)-i
+            factor *= len(A) - i
         return result
