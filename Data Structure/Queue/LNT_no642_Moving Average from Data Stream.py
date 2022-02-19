@@ -1,3 +1,5 @@
+# The same as LeetCode no346. Moving Average from Data Stream
+
 class MovingAverage:
     """
     @param: size: An integer

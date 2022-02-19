@@ -1,3 +1,5 @@
+# The same as LeetCode no973. K Closest Points to Origin
+
 """
 Definition for a point.
 class Point:

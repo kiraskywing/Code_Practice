@@ -1,3 +1,5 @@
+# The same as LeetCode no225. Implement Stack using Queues
+
 from queue import Queue
 
 class MyStack:
