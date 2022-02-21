@@ -1,3 +1,5 @@
+# The same as LeetCode no1086. High Five
+
 '''
 Definition for a Record
 class Record:
