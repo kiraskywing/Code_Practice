@@ -1,3 +1,5 @@
+# The same as LeetCode no281. Zigzag Iterator
+
 class ZigzagIterator:
     """
     @param: v1: A 1d vector
