@@ -1,3 +1,5 @@
+# The same as LeetCode no460. LFU Cache
+
 class KeyNode:
     def __init__(self, key, value, freq=1):
         self.key = key
