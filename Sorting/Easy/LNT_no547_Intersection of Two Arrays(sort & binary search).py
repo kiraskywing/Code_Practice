@@ -32,9 +32,4 @@ class Solution:
             else:
                 return True
 
-        if array[left] == target:
-            return True
-        if array[right] == target:
-            return True
-
-        return False
+        return array[left] == target or array[right] == target
