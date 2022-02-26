@@ -1,3 +1,5 @@
+# The same as LeetCode no308. Range Sum Query 2D - Mutable
+
 class NumMatrix(object):
 
     def __init__(self, matrix):

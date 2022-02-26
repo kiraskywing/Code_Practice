@@ -1,3 +1,5 @@
+# The same as LeetCode no644. Maximum Average Subarray II
+
 class Solution:
     """
     @param nums: an array with positive and negative Numbers
