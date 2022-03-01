@@ -34,4 +34,6 @@ class Solution:
             else:
                 right = mid
 
-        return right
+        if arr[right] >= target:
+            return right
+        return left
