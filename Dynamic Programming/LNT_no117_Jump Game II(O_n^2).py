@@ -1,3 +1,5 @@
+# The same as LeetCode no45. Jump Game II
+
 class Solution:
     """
     @param A: A list of integers
@@ -8,17 +10,13 @@ class Solution:
         """
         Greedy
         """
-        start, end, jumps = 0, 0, 0
-
-        while end < len(A) - 1:
-            jumps += 1
-            farthest = end
-            for i in range(start, end + 1):
-                farthest = max(farthest, A[i] + i)
-
-            start = end + 1
-            end = farthest
-
+        cur_end = farthest = jumps = 0
+        for i in range(len(A) - 1):
+            farthest = max(farthest, i + A[i])
+            if i == cur_end:
+                jumps += 1
+                cur_end = farthest
+        
         return jumps
 
         """
