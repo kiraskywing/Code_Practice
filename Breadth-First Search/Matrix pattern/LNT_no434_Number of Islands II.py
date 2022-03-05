@@ -34,8 +34,7 @@ class Solution:
             
             for di, dj in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
                 i2, j2 = i + di, j + dj
-                if 0 <= i2 < n and 0 <= j2 < m:
-                    if grid[i2][j2] != 0:
+                if 0 <= i2 < n and 0 <= j2 < m and grid[i2][j2] != 0:
                         self.union(parent, grid[i2][j2], label)
             
             label += 1

@@ -1,7 +1,7 @@
 class TrieNode:
     def __init__(self):
         self.children = collections.defaultdict(TrieNode)
-        self.isEnd = False
+        self.is_word = False
 
 class WordDictionary:
 
@@ -10,30 +10,28 @@ class WordDictionary:
 
     def addWord(self, word: str) -> None:
         cur = self.root
-        for c in reversed(word):
+        for c in word:
             cur = cur.children[c]
-        cur.isEnd = True
+        cur.is_word = True
 
     def search(self, word: str) -> bool:
-        cur = self.root
-        word = word[::-1]
-        return self.helper(cur, word, 0)
+        return self.helper(self.root, word, 0)
     
     def helper(self, cur, word, i):
         if i == len(word):
-            return cur.isEnd
+            return cur.is_word
         
         c = word[i]
         if c == '.':
-            for c2 in cur.children:
-                if self.helper(cur.children[c2], word, i + 1):
+            for _, child in cur.children.items():
+                if self.helper(child, word, i + 1):
                     return True
             return False
         else:
-            if c in cur.children:
-                return self.helper(cur.children[c], word, i + 1)
-            return False
-                    
+            if c not in cur.children:
+                return False
+            return self.helper(cur.children[c], word, i + 1)
+                
 
 
 # Your WordDictionary object will be instantiated and called as such:

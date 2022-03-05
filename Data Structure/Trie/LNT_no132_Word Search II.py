@@ -5,8 +5,10 @@ class TrieNode:
         self.children = collections.defaultdict(TrieNode)
         self.is_word = False
 class Trie:
-    def __init__(self):
+    def __init__(self, words):
         self.root = TrieNode()
+        for w in words:
+            self.insert(w)
     def insert(self, word):
         cur = self.root
         for c in word:
@@ -15,36 +17,36 @@ class Trie:
     def search(self, word):
         cur = self.root
         for c in word:
-            cur = cur.children.get(c)
-            if not cur:
+            if c not in cur.children:
                 return False
+            cur = cur.children[c]
         return cur.is_word
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         res = []
-        trie = Trie()
-        for w in words:
-            trie.insert(w)
-        root = trie.root
+        trie = Trie(words)
         for i in range(len(board)):
             for j in range(len(board[0])):
-                self.dfs(board, i, j, root, "", res)
+                self.dfs(board, i, j, trie.root, [], res)
         return res
     
-    def dfs(self, board, i, j, cur, s, res):
+    def dfs(self, board, i, j, cur, temp, res):
         if cur.is_word:
-            res.append(s)
+            res.append(''.join(temp))
             cur.is_word = False
         if not (0 <= i < len(board) and 0 <= j < len(board[0])):
             return
-        temp = board[i][j]
-        cur = cur.children.get(temp)
-        if not cur:
+        c = board[i][j]
+        
+        if c not in cur.children:
             return
+        cur = cur.children[c]
+        temp.append(c)
         board[i][j] = '*'
-        self.dfs(board, i + 1, j, cur, s + temp, res)
-        self.dfs(board, i - 1, j, cur, s + temp, res)
-        self.dfs(board, i, j + 1, cur, s + temp, res)
-        self.dfs(board, i, j - 1, cur, s + temp, res)
-        board[i][j] = temp
+        self.dfs(board, i + 1, j, cur, temp, res)
+        self.dfs(board, i - 1, j, cur, temp, res)
+        self.dfs(board, i, j + 1, cur, temp, res)
+        self.dfs(board, i, j - 1, cur, temp, res)
+        board[i][j] = c
+        temp.pop()

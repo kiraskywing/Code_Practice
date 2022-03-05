@@ -6,9 +6,7 @@ class Solution:
             for j in range(1, len(accounts[i])):
                 email = accounts[i][j]
                 if email in email_id:
-                    p1 = self.find(parent, i)
-                    p2 = self.find(parent, email_id[email])
-                    parent[p2] = p1
+                    self.union(parent, i, email_id[email])
                 else:
                     email_id[email] = i
         
@@ -28,3 +26,8 @@ class Solution:
         if parent[i] != i:
             parent[i] = self.find(parent, parent[i])
         return parent[i]
+
+    def union(self, parent, i, j):
+        pi, pj = self.find(parent, i), self.find(parent, j)
+        if pi != pj:
+            parent[pj] = pi

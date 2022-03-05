@@ -1,9 +1,13 @@
 class Solution:
     def champagneTower(self, poured: int, query_row: int, query_glass: int) -> float:
-        res = [poured] + [0] * query_row
+        tower = [[0] * k for k in range(1, query_row + 3)]
+        tower[0][0] = poured
         
-        for row in range(1, query_row + 1):
-            for i in range(row, -1, -1):
-                res[i] = max(res[i] - 1, 0) / 2.0 + max(res[i - 1] - 1, 0) / 2.0
+        for row in range(query_row + 1):
+            for col in range(row + 1):
+                overflow = (tower[row][col] - 1) / 2
+                if overflow > 0:
+                    tower[row + 1][col] += overflow
+                    tower[row + 1][col + 1] += overflow
         
-        return min(res[query_glass], 1)
+        return min(1, tower[query_row][query_glass])
