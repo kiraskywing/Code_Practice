@@ -1,3 +1,5 @@
+# The same as LintCode no1225. Island Perimeter
+
 class Solution:
     def islandPerimeter(self, grid: List[List[int]]) -> int:
         queue = collections.deque([])
