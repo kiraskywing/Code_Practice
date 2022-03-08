@@ -1,3 +1,5 @@
+# The same as LeetCode no425. Word Squares
+
 class Solution:
     """
     @param: words: a set of words without duplicates
@@ -5,9 +7,7 @@ class Solution:
     """
 
     def wordSquares(self, words):
-        trie = Trie()
-        for word in words:
-            trie.add(word)
+        trie = Trie(words)
 
         result = []
         for word in words:
@@ -15,13 +15,13 @@ class Solution:
         return result
 
     def dfs(self, trie, square, result):
-        index = len(square)
-        wordLen = len(square[0])
-        if index == wordLen:
+        rows = len(square)
+        cols = len(square[0])
+        if rows == cols:
             result.append(square[:])
             return
 
-        prefix = ''.join(square[i][index] for i in range(index))
+        prefix = ''.join(square[i][rows] for i in range(rows))
         for word in trie.get_words_with_prefix(prefix):
             if not self.checkPrefix(word, trie, square):
                 continue
@@ -30,11 +30,11 @@ class Solution:
             square.pop()
 
     def checkPrefix(self, word, trie, square):
-        index = len(square)
-        wordLen = len(square[0])
-        for i in range(index + 1, wordLen):
-            prefix = ''.join(square[j][i] for j in range(index))
-            prefix += word[i]
+        rows = len(square)
+        cols = len(square[0])
+        for j in range(rows + 1, cols):
+            prefix = ''.join(square[i][j] for i in range(rows))
+            prefix += word[j]
             if trie.find(prefix) is None:
                 return False
         return True
@@ -42,8 +42,7 @@ class Solution:
 
 class TrieNode:
     def __init__(self):
-        self.children = {}
-        self.is_word = False
+        self.children = collections.defaultdict(TrieNode)
         self.word_list = []
 
 
@@ -54,24 +53,17 @@ class Trie:
     def add(self, word):
         node = self.root
         for c in word:
-            if c not in node.children:
-                node.children[c] = TrieNode()
             node = node.children[c]
             node.word_list.append(word)
-        node.is_word = True
 
     def find(self, word):
         node = self.root
         for c in word:
-            node = node.children.get(c)
-            if node is None:
+            if c not in node.children:
                 return None
+            node = node.children[c]
         return node
 
     def get_words_with_prefix(self, prefix):
         node = self.find(prefix)
         return [] if node is None else node.word_list
-
-    def contains(self, word):
-        node = self.find(word)
-        return node is not None and node.is_word
