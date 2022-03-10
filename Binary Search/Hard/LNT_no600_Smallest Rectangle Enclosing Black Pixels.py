@@ -1,79 +1,39 @@
 class Solution:
-    """
-    @param image: a binary matrix with '0' and '1'
-    @param x: the location of one of the black pixels
-    @param y: the location of one of the black pixels
-    @return: an integer
-    """
-
-    def minArea(self, image, x, y):
-        m = len(image)
-        if m == 0:
-            return 0
-        n = len(image[0])
-        if n == 0:
-            return 0
-
-        start, end = 0, y
-        while start + 1 < end:
-            mid = (start + end) // 2
-            if self.col_has_pixel(image, mid, 0, m - 1):
-                end = mid
+    def minArea(self, image: List[List[str]], x: int, y: int) -> int:
+        up_row = self.searchRows(image, 0, x, True)
+        down_row = self.searchRows(image, x + 1, len(image) - 1, False)
+        left_col = self.searchCols(image, 0, y, True)
+        right_col = self.searchCols(image, y + 1, len(image[0]) - 1, False)
+        return (down_row - up_row) * (right_col - left_col)
+    
+    def searchRows(self, image, up, down, condition):
+        if up > down:
+            return down + 1
+        
+        while up + 1 < down:
+            mid = (up + down) // 2
+            if any(c == '1' for c in image[mid]) == condition:
+                down = mid
             else:
-                start = mid
-        if self.col_has_pixel(image, start, 0, m - 1):
-            left = start
-        elif self.col_has_pixel(image, end, 0, m - 1):
-            left = end
-
-        start, end = y, n - 1
-        while start + 1 < end:
-            mid = (start + end) // 2
-            if self.col_has_pixel(image, mid, 0, m - 1):
-                start = mid
+                up = mid
+        if any(c == '1' for c in image[up]) == condition:
+            return up
+        if any(c == '1' for c in image[down]) == condition:
+            return down
+        return down + 1
+    
+    def searchCols(self, image, left, right, condition):
+        if left > right:
+            return right + 1
+        
+        while left + 1 < right:
+            mid = (left + right) // 2
+            if any(image[i][mid] == '1' for i in range(len(image))) == condition:
+                right = mid
             else:
-                end = mid
-        if self.col_has_pixel(image, end, 0, m - 1):
-            right = end
-        elif self.col_has_pixel(image, start, 0, m - 1):
-            right = start
-
-        start, end = 0, x
-        while start + 1 < end:
-            mid = (start + end) // 2
-            if self.row_has_pixel(image, mid, 0, n - 1):
-                end = mid
-            else:
-                start = mid
-        if self.row_has_pixel(image, start, 0, n - 1):
-            down = start
-        elif self.row_has_pixel(image, end, 0, n - 1):
-            down = end
-
-        start, end = x, m - 1
-        while start + 1 < end:
-            mid = (start + end) // 2
-            if self.row_has_pixel(image, mid, 0, n - 1):
-                start = mid
-            else:
-                end = mid
-        if self.row_has_pixel(image, end, 0, n - 1):
-            up = end
-        elif self.row_has_pixel(image, start, 0, n - 1):
-            up = start
-
-        return (right - left + 1) * (up - down + 1)
-
-    def col_has_pixel(self, matrix, index, top, bottom):
-        if top == bottom:
-            return matrix[top][index] == "1"
-
-        mid = (top + bottom) // 2
-        return self.col_has_pixel(matrix, index, top, mid) or self.col_has_pixel(matrix, index, mid + 1, bottom)
-
-    def row_has_pixel(self, matrix, index, left, right):
-        if left == right:
-            return matrix[index][left] == "1"
-
-        mid = (left + right) // 2
-        return self.row_has_pixel(matrix, index, left, mid) or self.row_has_pixel(matrix, index, mid + 1, right)
+                left = mid
+        if any(image[i][left] == '1' for i in range(len(image))) == condition:
+            return left
+        if any(image[i][right] == '1' for i in range(len(image))) == condition:
+            return right
+        return right + 1

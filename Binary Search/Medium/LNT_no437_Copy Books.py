@@ -12,10 +12,10 @@ class Solution:
         start, end = max(pages), sum(pages)
         while start + 1 < end:
             mid = (start + end) // 2
-            if self.get_workers(pages, mid) <= k:
-                end = mid
-            else:
+            if self.get_workers(pages, mid) > k:
                 start = mid
+            else:
+                end = mid
 
         if self.get_workers(pages, start) <= k:
             return start
