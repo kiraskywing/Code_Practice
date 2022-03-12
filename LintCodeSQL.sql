@@ -1,3 +1,6 @@
+-- no1959 · Query information about Chinese and British teachers
+select * from `teachers` where `country` = 'UK' or `country` = 'CN'
+
 -- no1981 · Check the nationality of all teachers
 select distinct `country` from `teachers`
 
