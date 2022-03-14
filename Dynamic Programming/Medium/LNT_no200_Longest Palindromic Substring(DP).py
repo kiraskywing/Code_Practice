@@ -1,3 +1,5 @@
+# The same as LeetCode no5. Longest Palindromic Substring
+
 class Solution:
     """
     @param s: input string
@@ -5,7 +7,6 @@ class Solution:
     """
 
     def longestPalindrome(self, s):
-
         if not s:
             return ""
 
@@ -14,16 +15,16 @@ class Solution:
 
         for i in range(n):
             is_Palindrome[i][i] = True
-        for i in range(1, n):
-            is_Palindrome[i][i - 1] = True
+            if i > 0:
+                is_Palindrome[i][i - 1] = True
 
-        longest, start, end = 1, 0, 0
+        start, end = 0, 0
         for diff in range(1, n):
             for left in range(n - diff):
                 right = left + diff
-                is_Palindrome[left][right] = s[left] == s[right] and is_Palindrome[left + 1][right - 1]
-                if is_Palindrome[left][right] and diff + 1 > longest:
-                    longest = diff + 1
-                    start, end = left, right
+                if s[left] == s[right] and is_Palindrome[left + 1][right - 1]:
+                    is_Palindrome[left][right] = True
+                    if right - left > end - start:
+                        start, end = left, right
 
         return s[start: end + 1]

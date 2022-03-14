@@ -1,3 +1,13 @@
+-- no1953 · Query the name of the Chinese teacher
+select `name` from `teachers` where `country` = 'CN'
+
+-- no1957 · Inquire about courses starting before May 2020
+select `name`, `created_at` from `courses` 
+where `created_at` >= '2020-01-01' and `created_at` < '2020-05-01'
+
+-- no1958 · Query the courses that meet the conditions taught by the specified teacher
+select * from `courses` where `student_count` > 500 and `teacher_id` = 4
+
 -- no1959 · Query information about Chinese and British teachers
 select * from `teachers` where `country` = 'UK' or `country` = 'CN'
 
@@ -24,6 +34,9 @@ select `name` from `teachers`
 
 -- no2017 · Inserting SQL course information into the course table
 insert into `courses` value (14, 'SQL',	200,	'2021-02-25', 1)
+
+-- no2019 · Delete all rows in the table
+delete from `courses`
 
 -- no2020 · Update on the number of students choosing artificial intelligence
 update `courses` set `student_count` = 500 where `name` = 'Artificial Intelligence'
