@@ -1,25 +1,17 @@
 class Solution:
     def minRemoveToMakeValid(self, s: str) -> str:
-
+        stack = []
         removes = set()
-        unpatch = 0
-        lefts = []
-
-        for i, char in enumerate(s):
-            if char == "(":
-                unpatch += 1
-                lefts.append(i)
-
-            elif char == ")":
-                unpatch -= 1
-
-                if unpatch < 0:
-                    removes.add(i)
-                    unpatch = 0
+        for i, c in enumerate(s):
+            if c == '(':
+                stack.append(i)
+            elif c == ')':
+                if stack:
+                    stack.pop()
                 else:
-                    lefts.pop()
-
-        for i in lefts:
+                    removes.add(i)
+        
+        for i in stack:
             removes.add(i)
-
-        return ''.join(char for i, char in enumerate(s) if i not in removes)
+            
+        return ''.join(c for i, c in enumerate(s) if i not in removes)

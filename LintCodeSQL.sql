@@ -20,6 +20,9 @@ delete from `courses` where `created_at` < '2020-1-1'
 -- no2007 · Check course name and class size
 select `name`, `student_count` from `courses`
 
+-- no2008 · Query the course information of two courses
+select * from `courses` where `name` = 'System Design' or `name` = 'Django'
+
 -- no2009 · Query all teachers
 select * from `teachers`
 
