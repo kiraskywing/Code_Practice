@@ -47,9 +47,12 @@ update `courses` set `student_count` = 500 where `name` = 'Artificial Intelligen
 -- no2021 · Insert teacher information into the specified column of the teachers table
 insert into `teachers` (`name`, `email`, `age`, `country`) value ('XiaoFu', 'XiaoFu@lintcode.com', 20, 'CN')
 
--- no2045 · Output Hello LintCode
-select "Hello LintCode!"
+-- no2031 · Advance all course creation dates by one month
+select `id`, `name`, timestampadd(month, -1, `created_at`) as `new_created` from `courses`
 
 -- no2035_Calculate the number of years difference between the start date and the current date of all courses in the course schedule
 select `name` as 'courses_name', `created_at` as 'courses_created_at', TIMESTAMPDIFF(YEAR, `created_at`, '2021-04-01') as 'year_diff'
 from courses;
+
+-- no2045 · Output Hello LintCode
+select "Hello LintCode!"
