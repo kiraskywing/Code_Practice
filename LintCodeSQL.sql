@@ -135,13 +135,43 @@ from `courses` as `c` right join `teachers` as `t`
 on `c`.`teacher_id` = `t`.`id`
 where `t`.`country` = 'CN'
 
+-- no2053 · Check the name, email and course name of the teacher from China
+select 
+`courses`.`name` as `course_name`, 
+`teachers`.`name` as `teacher_name`, 
+`teachers`.`email` as `teacher_email` 
+from `courses` right join `teachers` on `courses`.`teacher_id` = `teachers`.`id`
+where `teachers`.`country` = 'CN'
+
+-- no2055 · Search for all course names and their corresponding instructor names and nationalities
+(select 
+c.`name` as `course_name`, 
+t.`name` as `teacher_name`, 
+t.`country` as `teacher_country` 
+from `courses` as c left join `teachers` as t on c.`teacher_id` = t.`id`)
+union
+(select 
+c.`name` as `course_name`, 
+t.`name` as `teacher_name`, 
+t.`country` as `teacher_country` 
+from `courses` as c right join `teachers` as t on c.`teacher_id` = t.`id`)
+
 -- no2062 · Query the id and name of all courses taught by the specified teacher
 select `courses`.`id` as `id`, `courses`.`name` as `course_name`, `teachers`.`name` as `teacher_name` 
 from `courses` join `teachers` on `courses`.`teacher_id` = `teachers`.`id`
 where `teachers`.`name` = 'Eastern Heretic'
 
+-- no2078 · Find out the number of teachers of different ages
+select `age`, count(`age`) as `age_count` from `teachers` group by `age` order by `age` desc
+
 -- no2081 · Insert the current date into the table
 insert into `records` values (curdate())
+
+-- no2082 · Statistics on the number of courses taught by each teacher
+select `teachers`.`name` as `teacher_name`, count(`courses`.`name`) as `course_count` 
+from `courses` right join `teachers` on `courses`.`teacher_id` = `teachers`.`id`
+group by `teachers`.`id`
+order by `course_count` desc, `teacher_name`
 
 -- no2084 · Add primary key constraints to the course table courses
 alter table `courses` add primary key (`id`)
