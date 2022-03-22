@@ -156,10 +156,80 @@ t.`name` as `teacher_name`,
 t.`country` as `teacher_country` 
 from `courses` as c right join `teachers` as t on c.`teacher_id` = t.`id`)
 
+-- no2056 · Copy the data in the teachers table that are older than 20 to another table
+insert into `teachers_bkp` (select * from `teachers` where `age` > 20)
+
+-- no2057 · Modify course information created by instructor Eastern Heretic
+update `courses` set `name` = 'PHP', `student_count` = 300
+where `teacher_id` = (select `id` from `teachers` where `name` = 'Eastern Heretic')
+
+-- no2059 · Remove faculty who have created courses before 2020
+delete from `teachers` 
+where `id` in (
+	select `teacher_id` from `courses` 
+	where year(`created_at`) < 2020
+)
+
+-- no2060 · Search for the name of the teacher for the 'Big Data' course
+select `name` from `teachers` where `id` = (
+	select `teacher_id` from `courses` where `name` = 'Big Data'
+)
+
 -- no2062 · Query the id and name of all courses taught by the specified teacher
 select `courses`.`id` as `id`, `courses`.`name` as `course_name`, `teachers`.`name` as `teacher_name` 
 from `courses` join `teachers` on `courses`.`teacher_id` = `teachers`.`id`
 where `teachers`.`name` = 'Eastern Heretic'
+
+-- no2065 · Check the course names of all courses taught by all teachers who are older than 20 years old
+select `courses`.`name` from `courses` 
+join `teachers` on `courses`.`teacher_id` = `teachers`.`id`
+where `courses`.`teacher_id` in (
+	select `id` from `teachers` where `age` > 20
+)
+
+-- no2066 · Search for course information for courses with more students than the number of students in all courses of the oldest teacher
+select * from `courses` where `student_count` > (
+	select max(`student_count`) from `courses` where `teacher_id` in (
+		select `id` from `teachers` where `age` = (
+			select max(`age`) from `teachers`
+		)
+	)
+)
+
+-- no2069 · Search for the course name and number of students in the course with the highest number of students per instructor
+select `name`, `student_count` from `courses` where (`student_count`, `teacher_id`) in (
+	select max(`student_count`), `teacher_id` from `courses` group by `teacher_id`
+)
+
+-- no2070 · Search for the name of a course created later than the creation time of any of the specified teacher's courses
+select `name` from `courses` 
+where `created_at` > any (
+	select `created_at` from `courses`
+	where `teacher_id` = (
+		select `id` from `teachers`
+		where `name` = 'Southern Emperor'
+	)
+)
+and `teacher_id` != (
+    select `id` from `teachers`
+    where `name` = 'Southern Emperor'
+)
+
+-- no2076 · Search for teacher information based on national average age
+select * from `teachers` where `country` in (
+	select `country` from `teachers` group by `country`
+	having avg(`age`) > (select avg(`age`) from `teachers`)
+)
+
+-- no2077 · Search for information on courses and instructors with the highest number of students
+select 
+	`courses`.`name` as `course_name`, 
+	`courses`.`student_count`, 
+	`teachers`.`name` as `teacher_name`
+from `courses` join `teachers` on `courses`.`teacher_id` = `teachers`.`id`
+where `courses`.`student_count` = (
+	select max(`student_count`) from `courses`
+)
 
 -- no2078 · Find out the number of teachers of different ages
 select `age`, count(`age`) as `age_count` from `teachers` group by `age` order by `age` desc
@@ -179,5 +249,19 @@ alter table `courses` add primary key (`id`)
 -- no2085 · Remove the primary key constraint from the course table `courses`
 alter table `courses` drop primary key
 
+-- no2086 · Search for the nationality of the teacher starting with 'U' and the total number of students between 2000 and 5000 and the total number of students of that nationality
+select `t`.`country`, sum(`c`.`student_count`) as `student_count`
+from `courses` as `c` join `teachers` as `t`
+on `c`.`teacher_id` = `t`.`id`
+group by `t`.`country`
+having `student_count` between 2000 and 5000
+order by `student_count` desc
+
 -- no2091 · Adding Foreign Key Constraints to Course Tables
 alter table `courses` add foreign key (`teacher_id`) references `teachers`(`id`)
+
+-- no2616 · Insert Kansas information into the teacher table
+begin;
+insert into `teachers` (`name`, `age`, `country`)
+value ('Kansas', 41, 'UK');
+commit;
