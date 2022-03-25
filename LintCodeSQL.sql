@@ -265,3 +265,151 @@ begin;
 insert into `teachers` (`name`, `age`, `country`)
 value ('Kansas', 41, 'UK');
 commit;
+
+-- no2617 · View the current transaction isolation level of the database
+SHOW VARIABLES like '%isolation%';
+
+-- no2620 · View the self-incrementing locking pattern for MySQL databases
+show variables like '%innodb_autoinc_lock_mode%';
+
+-- no2544 · Insert information about Feng Qingyang
+LOCK TABLES teachers READ;
+unlock tables;
+insert into `teachers` (`name`, `email`, `age`, `country`) 
+values ('Feng Qingyang', 'feng.qingyang@163.com', 37, 'CN');
+
+-- no2547 · Query all information in the teachers table
+LOCK TABLES courses WRITE;
+unlock tables;
+select * from `teachers`;
+
+-- no2564 · Create a Trigger "before_teachers_insert"
+CREATE TRIGGER `before_teachers_insert`
+    BEFORE INSERT ON `teachers`
+    FOR EACH ROW 
+SET NEW.`country` = 'CN';
+
+-- no2565 · Create a Trigger "before_teachers_update"
+create trigger `before_teachers_update`
+	before update on `teachers`
+	for each row
+set new.`country` = 'CN';
+
+-- no2568 · Delete the Trigger "before_teachers_update"
+drop trigger `before_teachers_update`;
+
+-- no2569 · Normative courses table data insert
+create trigger `before_courses_insert`
+before insert 
+on `courses` for each row
+begin
+	if new.`teacher_id` not in (select `id` from `teachers`) then
+		set new.`teacher_id` = 0, new.`created_at` = NULL;
+	end if;
+end;
+
+-- no2570 · New data processing of recruitment information statistics table
+create trigger `before_insert_recording`
+before insert on `recording` for each row
+begin
+	if new.`student_id` not in (select `id` from `students`)
+		then set new.`student_id` = 0;
+	end if;
+	
+	if new.`company_id` not in (select `id` from `companies`)
+		then set new.`company_id` = 0;
+	end if;
+end;
+
+-- no2572 · New data trigger message alert
+create trigger `memo` 
+after insert on `members` for each row
+begin
+	if new.`birthDate` is null then
+		insert into `reminders` (`memberId`, `message`)
+		values (new.`id`, concat('Hi ', new.`name`, ', please update your date of birth.'));
+	end if;
+end;
+
+-- no2573 · Backup New Data Trigger
+create trigger `bkp`
+after insert on `teachers` for each row
+begin
+	insert into `teachers_bkp` (`name`, `email`, `age`, `country`)
+	values (new.`name`, new.`email`, new.`age`, new.`country`);
+end;
+
+-- no2575 · Normative courses table data update
+create trigger `before_courses_update`
+before update on `courses` for each row
+begin
+	if new.`teacher_id` not in (select `id` from `teachers`) then
+		set new.`teacher_id` = old.`teacher_id`;
+	end if;
+end;
+
+-- no2576 · Update data processing of recruitment information statistics table
+create trigger `double_check`
+before update on `recording` for each row
+begin
+	if new.`company_id` not in (select `id` from `companies`) then
+		set new.`company_id` = old.`company_id`;
+	end if;
+
+	if new.`student_id` not in (select `id` from `students`) then
+		set new.`student_id` = old.`student_id`;
+	end if;
+end;
+
+-- no2577 · Backup Update Data Trigger
+create trigger `bkp`
+after update on `teachers` for each row
+begin
+	insert into `teachers_bkp` (`name`, `email`, `age`, `country`)
+	values (old.`name`, old.`email`, old.`age`, old.`country`);
+end;
+
+-- no2578 · Update data trigger message alert
+create trigger `memo`
+after update on `members` for each row
+begin
+	declare old_msg varchar(255);
+	declare new_msg varchar(255);
+	
+	set old_msg = 'Update {';
+	set new_msg = ' To {';
+
+	if old.`name` != new.`name` then
+		set old_msg = concat(old_msg, '[name=', old.`name`, '] ');
+		set new_msg = concat(new_msg, '[name=', new.`name`, '] ');
+	end if;
+
+	if old.`email` != new.`email` then
+		set old_msg = concat(old_msg, '[email=', old.`email`, '] ');
+		set new_msg = concat(new_msg, '[email=', new.`email`, '] ');
+	end if;
+
+	if old.`birthDate` != new.`birthDate` then
+		set old_msg = concat(old_msg, '[birthDate=', old.`birthDate`, '] ');
+		set new_msg = concat(new_msg, '[birthDate=', new.`birthDate`, '] ');
+	end if;
+
+	set old_msg = concat(old_msg, '}');
+	set new_msg = concat(new_msg, '}');
+	
+	insert into `reminders` (`memberId`, `message`)
+	values (old.`id`, concat(old_msg, new_msg));
+end;
+
+-- no2627 · Troubleshoot the current database table locks and view the table lock analysis
+show status like 'table%';
+
+-- no2633 · Troubleshoot the current database row locks and view row lock analysis
+SHOW STATUS LIKE 'innodb_row_lock%';
+
+-- no2635 · The use of optimistic locks and pessimistic locks (I)
+update `teachers` set `country` = 'CN', `version` = `version` + 1
+where `name` = 'Western Venom' and `version` = 5;
+
+-- no2654 · Put a line lock on the data 'id = 3'
+select * from `teachers` where `id` = 3 lock in share mode;
