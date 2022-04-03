@@ -1,3 +1,5 @@
+# the same as LeetCode no31. Next Permutation
+
 class Solution:
     """
     @param nums: A list of integers
