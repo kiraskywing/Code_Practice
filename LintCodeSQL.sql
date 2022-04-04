@@ -234,6 +234,12 @@ where `courses`.`student_count` = (
 -- no2078 · Find out the number of teachers of different ages
 select `age`, count(`age`) as `age_count` from `teachers` group by `age` order by `age` desc
 
+-- no2080 · Search for the name of the instructor and the total number of students in all the instructor's courses with less than 3000 students
+select `t`.`name`, IFNULL(sum(`c`.`student_count`), 0) as `student_count`
+from `teachers` as `t` left join `courses` as `c` on `t`.`id` = `c`.`teacher_id`
+group by `t`.`name`
+having `student_count` < 3000;
+
 -- no2081 · Insert the current date into the table
 insert into `records` values (curdate())
 
