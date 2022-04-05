@@ -1,3 +1,10 @@
+-- no1932 · Students with the Most Failed Subjects I
+select `student_id` from `exams`
+where `is_pass` = 0
+group by `student_id`
+order by count(*) desc
+limit 1
+
 -- no1953 · Query the name of the Chinese teacher
 select `name` from `teachers` where `country` = 'CN'
 
