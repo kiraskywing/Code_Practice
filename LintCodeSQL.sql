@@ -1,3 +1,9 @@
+-- no1928 · Analysis of Online Class I
+select `student_id`, min(`date`) as `earliest_course_date`
+from `online_class_situations`
+where `course_number` > 0
+group by `student_id`;
+
 -- no1932 · Students with the Most Failed Subjects I
 select `student_id` from `exams`
 where `is_pass` = 0
