@@ -16,3 +16,11 @@ class Solution:
             prefix_min = min(prefix_sum, prefix_min)
 
         return prefix_max
+
+class Solution2:
+    def maxSubArray(self, nums: List[int]) -> int:
+        cur_sum, res = 0, float('-inf')
+        for num in nums:
+            cur_sum = max(cur_sum + num, num)
+            res = max(res, cur_sum)
+        return res
