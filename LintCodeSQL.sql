@@ -30,6 +30,9 @@ select * from `courses` where `created_at` in ('2021-01-01', '2021-01-03')
 -- no1962 · Query courses with teacher id other than 1 and 3
 select `name` from `courses` where `teacher_id` not in (1, 3)
 
+-- no1963 · Search for teachers aged 20~25 whose nationality is not Chinese or British
+select * from `teachers` where `age` between 20 and 25 and `country` not in ('CN', 'UK')
+
 -- no1964 · Query for course information about the number of students within the specified range
 select * from `courses` where `student_count` between 50 and 55
 
