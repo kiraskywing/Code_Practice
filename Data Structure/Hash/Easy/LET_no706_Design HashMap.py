@@ -1,3 +1,5 @@
+# Similar with LeetCode no705. Design HashSet
+
 class ListNode:
     def __init__(self, key, value):
         self.pair = [key, value]
