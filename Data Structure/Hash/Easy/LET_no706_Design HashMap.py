@@ -1,62 +1,51 @@
-# Similar with LeetCode no705. Design HashSet
-
-class ListNode:
-    def __init__(self, key, value):
-        self.pair = [key, value]
+class Node:
+    def __init__(self, key, val):
+        self.key, self.val = key, val
         self.next = None
 
 class MyHashMap:
 
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
-        self.m = 1000
-        self.h = [None] * self.m
+        self.size = 777
+        self.buckets = [None] * self.size
 
     def put(self, key: int, value: int) -> None:
-        """
-        value will always be non-negative.
-        """
-        index = key % self.m
-        if not self.h[index]:
-            self.h[index] = ListNode(key, value)
+        idx = key % self.size
+        cur = self.buckets[idx]
+        if not cur:
+            self.buckets[idx] = Node(key, value)
+            return
+        
+        if cur.key == key:
+            cur.val = value
         else:
-            cur = self.h[index]
-            while True:
-                if cur.pair[0] == key:
-                    cur.pair[1] = value
+            while cur.next:
+                if cur.next.key == key:
+                    cur.next.val = value
                     return
-                if not cur.next:
-                    break
                 cur = cur.next
-            cur.next = ListNode(key, value)
+            cur.next = Node(key, value)
 
     def get(self, key: int) -> int:
-        """
-        Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key
-        """
-        index = key % self.m
-        cur = self.h[index]
+        idx = key % self.size
+        cur = self.buckets[idx]
         while cur:
-            if cur.pair[0] == key:
-                return cur.pair[1]
+            if cur.key == key:
+                return cur.val
             cur = cur.next
         return -1
 
     def remove(self, key: int) -> None:
-        """
-        Removes the mapping of the specified value key if this map contains a mapping for the key
-        """
-        index = key % self.m
-        cur = self.h[index]
+        idx = key % self.size
+        cur = self.buckets[idx]
         if not cur:
             return
-        if cur.pair[0] == key:
-            self.h[index] = cur.next
+        
+        if cur.key == key:
+            self.buckets[idx] = cur.next
         else:
             while cur.next:
-                if cur.next.pair[0] == key:
+                if cur.next.key == key:
                     cur.next = cur.next.next
                     return
                 cur = cur.next
