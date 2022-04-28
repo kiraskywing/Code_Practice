@@ -1,19 +1,19 @@
-import heapq
-
 class Solution:
     def minimumEffortPath(self, heights: List[List[int]]) -> int:
         m, n = len(heights), len(heights[0])
-        dist = [[sys.maxsize] * n for _ in range(m)]
-        minHeap = [(0, 0, 0)]
+        diff = [[float('inf')] * n for _ in range(m)]
+        diff[0][0] = 0
+        temp = [(0, 0, 0)]
         
-        while minHeap:
-            d, r, c = heapq.heappop(minHeap)
-            if r == m - 1 and c == n - 1:
+        while temp:
+            d, i, j = heapq.heappop(temp)
+            if i == m - 1 and j == n - 1:
                 return d
-            for dr, dc in [[0, 1], [1, 0], [-1, 0], [0, -1]]:
-                nr, nc = r + dr, c + dc
-                if 0 <= nr < m and 0 <= nc < n:
-                    newDist = max(d, abs(heights[nr][nc] - heights[r][c]))
-                    if newDist < dist[nr][nc]:
-                        dist[nr][nc] = newDist
-                        heapq.heappush(minHeap, (newDist, nr, nc))
+            
+            for di, dj in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                i2, j2 = i + di, j + dj
+                if 0 <= i2 < m and 0 <= j2 < n:
+                    d2 = max(d, abs(heights[i2][j2] - heights[i][j]))
+                    if d2 < diff[i2][j2]:
+                        diff[i2][j2] = d2
+                        heapq.heappush(temp, (d2, i2, j2))
