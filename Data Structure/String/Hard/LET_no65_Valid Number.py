@@ -1,32 +1,23 @@
 class Solution:
     def isNumber(self, s: str) -> bool:
-        states = [{}, 
-                  # State (1) - initial state (scan ahead thru blanks)
-                  {"blank": 1, "sign": 2, "digit": 3, '.': 4}, 
-                  # State (2) - found sign (expect digit/dot)
-                  {"digit": 3, '.': 4}, 
-                  # State (3) - digit consumer (loop until non-digit)
-                  {"digit": 3, '.': 5, 'e': 6, "blank": 9},
-                  # State (4) - found dot (only a digit is valid)
-                  {"digit": 5}, 
-                  # State (5) - after dot (expect digits, e, or end of valid input)
-                  {"digit": 5, 'e': 6, "blank": 9}, 
-                  # State (6) - found 'e' (only a sign or digit valid)
-                  {'sign':7, 'digit':8},
-                  # State (7) - sign after 'e' (only digit)
-                  {'digit':8},
-                  # State (8) - digit after 'e' (expect digits or end of valid input) 
-                  {'digit':8, 'blank':9},
-                  # State (9) - Terminal state (fail if non-blank found)
-                  {'blank':9}]
-        currentState = 1
-        for c in s:
-            if c in '0123456789': c = "digit"
-            elif c == ' ': c = "blank"
-            elif c in "+-": c = "sign"
-            
-            if c.lower() not in states[currentState].keys(): return False
-            currentState = states[currentState][c.lower()]
+        states = [
+            {"sign":1, "digit":2, ".":3}, #0 initial state
+            {"digit":2, ".":3},           #1 found sign (expect digit/dot)
+            {"digit":2, ".":4, "e":5},    #2 digit consumer (loop until non-digit)
+            {"digit":4},                  #3 found dot (only a digit is valid)
+            {"digit":4, "e":5},           #4 after dot (expect digits and e)
+            {"sign":6, "digit":7},        #5 found 'e' (only a sign or digit valid)
+            {"digit":7},                  #6 sign after 'e' (only digit)
+            {"digit":7}                   #7 digit after 'e' (expect digits) 
+        ]
         
-        if currentState not in [3, 5, 8, 9]: return False
-        return True
+        cur_state = 0
+        for c in s:
+            if c in "0123456789": c = "digit"
+            elif c in '+-': c = "sign"
+                
+            if c.lower() not in states[cur_state]:
+                return False
+            cur_state = states[cur_state][c.lower()]
+        
+        return cur_state in [2, 4, 7]
