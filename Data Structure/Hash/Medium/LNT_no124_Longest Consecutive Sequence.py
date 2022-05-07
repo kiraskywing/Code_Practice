@@ -7,21 +7,6 @@ class Solution:
     """
 
     def longestConsecutive(self, num):
-        nums = sorted(set(num))
-        count = 1
-        result = 1
-
-        for i in range(1, len(nums)):
-            if nums[i] == nums[i - 1] + 1:
-                count += 1
-            else:
-                result = max(result, count)
-                count = 1
-        result = max(result, count)
-        return result
-
-class Solution2:
-    def longestConsecutive(self, nums: List[int]) -> int:
         nums = set(nums)
         res = 0
         for i in nums:
