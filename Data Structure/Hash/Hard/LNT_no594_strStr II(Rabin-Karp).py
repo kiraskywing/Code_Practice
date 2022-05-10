@@ -1,39 +1,33 @@
 class Solution:
     """
-    @param: source: A source string
-    @param: target: A target string
+    @param source: A source string
+    @param target: A target string
     @return: An integer as index
     """
-    def strStr2(self, source, target):
-        if source is None or target is None:
+    def str_str2(self, source: str, target: str) -> int:
+        if source is None or target is None or len(target) > len(source):
             return -1
         if not target:
             return 0
-
+        
         base = 33
-        mod = 1000000007
+        mod = 10 ** 9 + 7
         key = 1
-        sHash = [key]
+        s_hash = [key]
         for c in source:
             key = (key * base + ord(c) - ord('a')) % mod
-            sHash.append(key)
+            s_hash.append(key)
 
-        key = 1
+        t_hash = 1
+        order = 1
         for c in target:
-            key = (key * base + ord(c) - ord('a')) % mod
-        tHash = key
+            t_hash = (t_hash * base + ord(c) - ord('a')) % mod
+            order = order * base % mod
+        t_hash = (t_hash - order + mod) % mod
 
-        
-        key, n = 1, len(target)
-        for _ in range(n):
-            key = key * base % mod
-        order = key
-
-        tHash = (tHash - order + mod) % mod
-
-        for i in range(len(source) - n + 1):
-            val = (sHash[i + n] - sHash[i] * order % mod + mod) % mod
-            if val == tHash:
+        for i in range(len(source) - len(target) + 1):
+            val = (s_hash[i + len(target)] - s_hash[i] * order + mod) % mod
+            if val == t_hash:
                 return i
         
         return -1

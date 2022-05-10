@@ -1,3 +1,7 @@
+from typing import (
+    List,
+)
+
 class Solution:
     """
     @param a: The A array
@@ -5,52 +9,52 @@ class Solution:
     @param s: The S string
     @return: The answer
     """
-    def stringReplace(self, a, b, s):
+    def string_replace(self, a: List[str], b: List[str], s: str) -> str:
         base = 33
-        mod = 1000000007
-        maxLen = -1
-        aHash, sHash, order = [], [], []
+        mod = 10 ** 9 + 7
+        max_length = -1
+        a_hash, s_hash, order = [], [], []
 
-        for sub in a:
+        for string in a:
             key = 1
-            maxLen = max(maxLen, len(sub))
-            for c in sub:
+            max_length = max(max_length, len(string))
+            for c in string:
                 key = (key * base + ord(c) - ord('a')) % mod
-            aHash.append(key)
+            a_hash.append(key)
         
         key = 1
-        sHash.append(key)
-        maxLen = max(maxLen, len(s))
+        s_hash.append(key)
+        max_length = max(max_length, len(s))
         for c in s:
             key = (key * base + ord(c) - ord('a')) % mod
-            sHash.append(key)
-
+            s_hash.append(key)
+        
         key = 1
         order.append(key)
-        for _ in range(maxLen):
+        for _ in range(max_length):
             key = key * base % mod
             order.append(key)
         
         res = list(s)
         i = 0
-        while i < len(res):
-            maxLen, target = 0, 0
+        while i < len(s):
+            max_length = target = 0
             for j in range(len(a)):
-                aSize = len(a[j])
-                if i + aSize > len(res):
+                a_size = len(a[j])
+                if i + a_size > len(res):
                     continue
                 
-                sVal = (sHash[i + aSize] - sHash[i] * order[aSize] % mod + mod) % mod
-                aVal = (aHash[j] - order[aSize] + mod) % mod
-                
-                if sVal == aVal and aSize > maxLen:
-                    maxLen = aSize
+                s_val = (s_hash[i + a_size] - s_hash[i] * order[a_size] % mod + mod) % mod
+                a_val = (a_hash[j] - order[a_size] + mod) % mod
+
+                if s_val == a_val and a_size > max_length:
+                    max_length = a_size
                     target = j
             
-            if maxLen > 0:
-                for j in range(maxLen):
+            if max_length > 0:
+                for j in range(max_length):
                     res[i + j] = b[target][j]
-                i += maxLen
+                i += max_length
             else:
                 i += 1
         

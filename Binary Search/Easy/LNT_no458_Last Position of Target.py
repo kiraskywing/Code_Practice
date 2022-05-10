@@ -27,3 +27,18 @@ class Solution:
             return start
 
         return -1
+
+
+import bisect
+class Solution2:
+    """
+    @param nums: An integer array sorted in ascending order
+    @param target: An integer
+    @return: An integer
+    """
+    def last_position(self, nums: List[int], target: int) -> int:
+        if not nums:
+            return -1
+        
+        i = bisect.bisect_right(nums, target)
+        return i - 1 if nums[i - 1] == target else -1
