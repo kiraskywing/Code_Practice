@@ -13,3 +13,7 @@ class Solution:
         elif nums[j] >= target:
             return j
         return j + 1
+
+class Solution2:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        return bisect.bisect_left(nums, target)
