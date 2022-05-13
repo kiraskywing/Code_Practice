@@ -311,6 +311,15 @@ CREATE TRIGGER `before_teachers_insert`
     FOR EACH ROW 
 SET NEW.`country` = 'CN';
 
+-- no2548 · Update Southern Emperor's email
+-- 对 courses 表上写锁，不要删除该代码 --
+LOCK TABLES courses WRITE;
+
+-- Write your SQL Query here --
+-- example: SELECT * FROM XX_TABLE WHERE XXX --
+unlock tables;
+update `teachers` set `email` = 'southern.emperor@outlook.com' where `name` = 'Southern Emperor';
+
 -- no2565 · Create a Trigger "before_teachers_update"
 create trigger `before_teachers_update`
 	before update on `teachers`

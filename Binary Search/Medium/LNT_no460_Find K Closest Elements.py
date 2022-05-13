@@ -2,6 +2,7 @@
 
 class Solution:
     def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        # right = bisect.bisect_right(arr, x)
         right = self.find_upper(arr, x)
         left = right - 1
         res = []
@@ -21,7 +22,7 @@ class Solution:
         
         while left + 1 < right:
             mid = (left + right) // 2
-            if arr[mid] >= target:
+            if arr[mid] <= target:
                 right = mid
             else:
                 left = mid

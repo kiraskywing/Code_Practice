@@ -40,3 +40,19 @@ class Solution:
         if nums[right] == target:
             return right
         return left
+
+
+import bisect
+class Solution2:
+    """
+    @param a: A an integer array sorted in ascending order
+    @param target: An integer
+    @return: An integer
+    """
+    def total_occurrence(self, a: List[int], target: int) -> int:
+        left = bisect.bisect_left(a, target)
+        right = bisect.bisect_right(a, target)
+        
+        if left == len(a) or a[left] != target:
+            return 0
+        return right - left
