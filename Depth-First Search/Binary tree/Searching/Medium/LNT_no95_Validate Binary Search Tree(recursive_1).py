@@ -16,14 +16,12 @@ class Solution:
     """
 
     def isValidBST(self, root):
-
-        return self.validate(root, float('-inf'), float('inf'))
-
-    def validate(self, root, floor, ceiling):
-        if not root:
+        return self.helper(root, float('-inf'), float('inf'))
+    
+    def helper(self, cur, min_val, max_val):
+        if not cur:
             return True
-
-        if root.val <= floor or root.val >= ceiling:
+        
+        if not (min_val < cur.val < max_val):
             return False
-
-        return self.validate(root.left, floor, root.val) and self.validate(root.right, root.val, ceiling)
+        return self.helper(cur.left, min_val, cur.val) and self.helper(cur.right, cur.val, max_val)
