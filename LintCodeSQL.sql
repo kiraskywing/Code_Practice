@@ -444,3 +444,8 @@ where `name` = 'Western Venom' and `version` = 5;
 
 -- no2654 · Put a line lock on the data 'id = 3'
 select * from `teachers` where `id` = 3 lock in share mode;
+
+-- no2720 · Creating a view that ensures consistency (I)
+CREATE VIEW v_teachers
+AS
+SELECT * FROM teachers where age < 30
