@@ -31,16 +31,16 @@ class Solution:
 
         n = len(s1)
         dp = [[[False for _ in range(n + 1)] for _ in range(n)] for _ in range(n)]
-        for length in range(1, n + 1):
-            for i_start in range(n - length + 1):
-                for j_start in range(n - length + 1):
-                    if length == 1:
-                        dp[i_start][j_start][length] = s1[i_start] == s2[j_start]
+        
+        for k in range(1, n + 1):
+            for i in range(n - k + 1):
+                for j in range(n - k + 1):
+                    if k == 1:
+                        dp[i][j][k] = s1[i] == s2[j]
                     else:
-                        for sub_length in range(1, length):
-                            if dp[i_start][j_start][sub_length] and dp[i_start + sub_length][j_start + sub_length][length - sub_length] or \
-                               dp[i_start][j_start + length - sub_length][sub_length] and dp[i_start + sub_length][j_start][length - sub_length]:
-                                dp[i_start][j_start][length] = True
+                        for q in range(1, k):
+                            if dp[i][j][q] and dp[i+q][j+q][k-q] or dp[i][j+k-q][q] and dp[i+q][j][k-q]:
+                                dp[i][j][k] = True
                                 break
         
         return dp[0][0][n]
