@@ -1,3 +1,5 @@
+# The same as LeetCode no19. Remove Nth Node From End of List
+
 """
 Definition of ListNode
 class ListNode(object):

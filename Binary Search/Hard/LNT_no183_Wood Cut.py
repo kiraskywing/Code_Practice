@@ -1,3 +1,5 @@
+# The same as LeetCode no1891. Cutting Ribbons
+
 class Solution:
     """
     @param L: Given n pieces of wood with length L[i]
