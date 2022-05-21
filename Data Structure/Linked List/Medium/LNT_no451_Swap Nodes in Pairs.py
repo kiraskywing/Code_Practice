@@ -17,16 +17,14 @@ class Solution:
         if not head or not head.next:
             return head
 
-        dummy = ListNode(-1)
-        cur = dummy
-
-        while head and head.next:
-            tmp = head.next.next
-            cur.next = head.next
-            cur.next.next = head
-            cur = cur.next.next
-            cur.next = tmp
-            head = tmp
+        dummy = ListNode(-1, head)
+        prev, cur = dummy, dummy.next
+        while cur and cur.next:
+            cur2, nxt = cur.next, cur.next.next
+            prev.next = cur2
+            cur2.next = cur
+            cur.next = nxt
+            prev, cur = cur, nxt
 
         return dummy.next
 

@@ -1,3 +1,5 @@
+# The same as LeetCode no27. Remove Element
+
 class Solution:
     """
     @param: A: A list of integers
