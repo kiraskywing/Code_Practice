@@ -10,9 +10,10 @@ class Solution:
         min_height = [float('inf')] * (n + 1)
         min_height[0] = float('-inf')
         
-        for i in range(n):
-            idx = self.binarySearch(min_height, envelopes[i][1])
-            min_height[idx] = envelopes[i][1]
+        for _, h in envelopes:
+            idx = self.binarySearch(min_height, h)
+            # idx = bisect.bisect_left(min_height, h)
+            min_height[idx] = h
         
         for i in range(n, 0, -1):
             if min_height[i] != float('inf'):

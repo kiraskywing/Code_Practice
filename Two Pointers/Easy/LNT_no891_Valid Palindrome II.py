@@ -7,20 +7,16 @@ class Solution:
     """
 
     def validPalindrome(self, s):
-        left, right = self.scan_string(s, 0, len(s) - 1)
-        if left >= right:
-            return True
-
-        return self.is_Palindrome(s, left + 1, right) or self.is_Palindrome(s, left, right - 1)
-
-    def scan_string(self, string, left, right):
-        while left < right:
-            if string[left] != string[right]:
-                return left, right
+        return self.helper(s, 0, len(s) - 1, 1)
+    
+    def helper(self, s, left, right, times):
+        if times < 0:
+            return False
+        
+        while left <= right and s[left] == s[right]:
             left += 1
             right -= 1
-        return left, right
-
-    def is_Palindrome(self, string, left, right):
-        left, right = self.scan_string(string, left, right)
-        return left >= right
+        
+        if left > right:
+            return True
+        return self.helper(s, left + 1, right, times - 1) or self.helper(s, left, right - 1, times - 1)
