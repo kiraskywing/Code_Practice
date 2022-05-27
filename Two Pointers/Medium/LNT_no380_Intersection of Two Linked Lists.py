@@ -16,24 +16,22 @@ class Solution:
     """
 
     def getIntersectionNode(self, headA, headB):
-        lenA, lenB = 0, 0
-        nodeA, nodeB = headA, headB
-        while nodeA:
-            lenA += 1
-            nodeA = nodeA.next
-        while nodeB:
-            lenB += 1
-            nodeB = nodeB.next
-
-        nodeA, nodeB = headA, headB
-        while lenA > lenB:
-            nodeA = nodeA.next
-            lenA -= 1
-        while lenB > lenA:
-            nodeB = nodeB.next
-            lenB -= 1
-
-        while nodeA and nodeB and nodeA.val != nodeB.val:
-            nodeA = nodeA.next
-            nodeB = nodeB.next
-        return nodeA
+        m, n = self.getSize(headA), self.getSize(headB)
+        if n > m:
+            return self.helper(headB, headA, n - m)
+        return self.helper(headA, headB, m - n)
+        
+    def getSize(self, node):
+        size = 0
+        while node:
+            size += 1
+            node = node.next
+        return size
+    
+    def helper(self, node1, node2, diff):
+        for _ in range(diff):
+            node1 = node1.next
+        
+        while node1 and node2 and node1 is not node2:
+            node1, node2 = node1.next, node2.next
+        return node1

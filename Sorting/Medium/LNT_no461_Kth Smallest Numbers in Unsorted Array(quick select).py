@@ -1,5 +1,6 @@
-from random import randint
+# Similar to LeetCode no215. Kth Largest Element in an Array
 
+from random import randint
 
 class Solution:
     """
@@ -10,25 +11,25 @@ class Solution:
 
     def kthSmallest(self, k, nums):
         return self.quickselect(nums, 0, len(nums) - 1, k - 1)
-
-    def quickselect(self, nums, start, end, target):
-        if start == end:
-            return nums[start]
-
-        left, right = start, end
+    
+    def quickselect(self, nums, left, right, target):
+        if left == right:
+            return nums[left]
+        
         pivot = nums[randint(left, right)]
-        while left <= right:
-            while left <= right and nums[left] < pivot:
-                left += 1
-            while left <= right and nums[right] > pivot:
-                right -= 1
-            if left <= right:
-                nums[left], nums[right] = nums[right], nums[left]
-                left += 1
-                right -= 1
-
-        if right >= target and right >= start:
-            return self.quickselect(nums, start, right, target)
-        elif target >= left and left <= end:
-            return self.quickselect(nums, left, end, target)
+        i, j = left, right
+        while i <= j:
+            while i <= j and nums[i] < pivot:
+                i += 1
+            while i <= j and nums[j] > pivot:
+                j -= 1
+            if i <= j:
+                nums[i], nums[j] = nums[j], nums[i]
+                i += 1
+                j -= 1
+                
+        if target <= j:
+            return self.quickselect(nums, left, j, target)
+        elif target >= i:
+            return self.quickselect(nums, i, right, target)
         return nums[target]
