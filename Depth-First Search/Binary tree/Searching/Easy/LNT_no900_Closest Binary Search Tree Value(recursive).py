@@ -52,3 +52,30 @@ class Solution:
         lower = self.get_lower(root.right, target)
 
         return root if not lower else lower
+
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution2:
+    def closestValue(self, root: Optional[TreeNode], target: float) -> int:
+        res, _ = self.dfs(root, target)
+        return res
+    
+    def dfs(self, root, target):
+        if not root:
+            return 0, float('inf')
+        
+        left_res, left_diff = self.dfs(root.left, target)
+        right_res, right_diff = self.dfs(root.right, target)
+        cur_diff = abs(root.val - target)
+        
+        min_diff = min(left_diff, right_diff, cur_diff)
+        if min_diff == left_diff:
+            return left_res, left_diff
+        if min_diff == right_diff:
+            return right_res, right_diff
+        return root.val, cur_diff

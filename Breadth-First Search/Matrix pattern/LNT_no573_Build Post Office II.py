@@ -1,3 +1,5 @@
+# The same as LeetCode no317. Shortest Distance from All Buildings
+
 from typing import (
     List,
 )
