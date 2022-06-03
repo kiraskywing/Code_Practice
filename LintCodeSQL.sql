@@ -432,6 +432,12 @@ begin
 	values (old.`id`, concat(old_msg, new_msg));
 end;
 
+-- 2587 · Associated processing when deleting teachers table information (I)
+create trigger check_teacher after delete on teachers for each row
+begin 
+        update courses set teacher_id = 0 where teacher_id = old.id;
+end
+
 -- no2627 · Troubleshoot the current database table locks and view the table lock analysis
 show status like 'table%';
 
