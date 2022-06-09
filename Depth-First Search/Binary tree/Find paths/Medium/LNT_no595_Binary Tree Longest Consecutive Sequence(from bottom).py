@@ -26,3 +26,23 @@ class Solution:
             length = 1
 
         return max(length, max(self.dfs(root, root.left, length), self.dfs(root, root.right, length)))
+
+class Solution2:
+    def longestConsecutive(self, root: Optional[TreeNode]) -> int:
+        _, res = self.helper(root)
+        return res
+    
+    def helper(self, root):
+        if not root:
+            return 0, 0
+        
+        left_in, left_res = self.helper(root.left)
+        right_in, right_res = self.helper(root.right)
+        cur_in = 1
+        
+        if root.left and root.left.val - 1 == root.val:
+            cur_in = max(cur_in, left_in + 1)
+        if root.right and root.right.val - 1 == root.val:
+            cur_in = max(cur_in, right_in + 1)
+        
+        return cur_in, max(cur_in, left_res, right_res)

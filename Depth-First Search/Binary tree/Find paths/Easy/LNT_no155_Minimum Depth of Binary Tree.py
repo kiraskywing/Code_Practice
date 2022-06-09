@@ -28,5 +28,21 @@ class Solution:
         
         return 1 + min(self.minDepth(root.left), self.minDepth(root.right))
 
+class Solution2:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        self.res = float('inf')
+        self.dfs(root, 1)
+        return self.res
+    
+    def dfs(self, root, depth):
+        if not root.left and not root.right:
+            self.res = min(self.res, depth)
+        if root.left:
+            self.dfs(root.left, depth + 1)
+        if root.right:
+            self.dfs(root.right, depth + 1)
+
 
 
