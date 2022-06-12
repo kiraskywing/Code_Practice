@@ -6,11 +6,11 @@ class Solution:
             prefix += num
             record[prefix] = i
             
-        res = record.get(x, sys.maxsize)
+        res = record[x] if x in record else float('inf')
         
-        for i, num in enumerate(nums[::-1], 1):
+        for i, num in enumerate(reversed(nums), 1):
             x -= num
             if x in record and record[x] + i <= len(nums):
                 res = min(res, record[x] + i)
         
-        return res if res < sys.maxsize else -1
+        return res if res != float('inf') else -1

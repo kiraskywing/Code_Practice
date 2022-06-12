@@ -1,22 +1,24 @@
+from typing import (
+    List,
+)
+
 class Solution:
     """
-    @param: : a string to be split
+    @param s: a string to be split
     @return: all possible split string array
     """
+    def split_string(self, s: str) -> List[List[str]]:
+        res = []
+        self.dfs(s, 0, [], res)
+        return res
 
-    def splitString(self, s):
-
-        result = []
-        self.dfs(result, [], s)
-        return result
-
-    def dfs(self, result, path, s):
-        if s == "":
-            result.append(path[:])
+    def dfs(self, s, start, temp, res):
+        if start == len(s):
+            res.append(temp[:])
             return
 
-        for i in range(2):
+        for i in range(start, start + 2):
             if i + 1 <= len(s):
-                path.append(s[:i + 1])
-                self.dfs(result, path, s[i + 1:])
-                path.pop()
+                temp.append(s[start:i+1])
+                self.dfs(s, i + 1, temp, res)
+                temp.pop()
