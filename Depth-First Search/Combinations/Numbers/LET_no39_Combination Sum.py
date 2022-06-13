@@ -1,5 +1,3 @@
-# The same as LeetCode no39. Combination Sum
-
 class Solution:
     """
     @param candidates: A list of integers
@@ -9,7 +7,7 @@ class Solution:
 
     def combinationSum(self, candidates, target):
 
-        candidates = sorted(list(set(candidates)))
+        # candidates = sorted(list(set(candidates)))
         result = []
         self.dfs(candidates, target, 0, [], result)
         return result
