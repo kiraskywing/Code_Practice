@@ -1,35 +1,36 @@
+from typing import (
+    Set,
+)
+
 class Solution:
     """
-    @param: : A string
-    @param: : A set of word
+    @param s: A string
+    @param dict: A set of word
     @return: the number of possible sentences.
     """
+    def word_break3(self, s: str, dict: Set[str]) -> int:
+        if not dict:
+            return 0
 
-    def wordBreak3(self, s, dict):
-        max_len, new_dict = self.initialize(dict)
-        return self.memo_search(s.lower(), 0, max_len, new_dict, {})
+        max_len, wordset = self.getWordSet(dict)
+        return self.dfs(s.lower(), 0, max_len, wordset, {})
 
-    def initialize(self, words):
-        max_len, result = -sys.maxsize, set()
-        for word in words:
-            max_len = max(max_len, len(word))
-            result.add(word.lower())
-        return max_len, result
-
-    def memo_search(self, string, index, max_len, words, memo):
-        if index == len(string):
+    def getWordSet(self, words):
+        max_len = float('-inf')
+        memo = set()
+        for w in words:
+            memo.add(w.lower())
+            max_len = max(max_len, len(w))
+        return max_len, memo
+    
+    def dfs(self, s, i, max_len, wordset, memo):
+        if i == len(s):
             return 1
-        if index in memo:
-            return memo[index]
-
-        memo[index] = 0
-        for i in range(index, len(string)):
-            if i - index + 1 > max_len:
-                break
-            word = string[index: i + 1]
-            if word not in words:
-                continue
-
-            memo[index] += self.memo_search(string, i + 1, max_len, words, memo)
-
-        return memo[index]
+        if i in memo:
+            return memo[i]
+        
+        memo[i] = 0
+        for size in range(1, min(max_len, len(s) - i) + 1):
+            if s[i:i+size] in wordset:
+                memo[i] += self.dfs(s, i + size, max_len, wordset, memo)
+        return memo[i]
