@@ -1,5 +1,3 @@
-# The same as LeetCode no236. Lowest Common Ancestor of a Binary Tree
-
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -19,8 +17,4 @@ class Solution:
         
         if left_found and right_found:
             return root
-        if left_found:
-            return left_found
-        if right_found:
-            return right_found
-        return None
+        return left_found or right_found
