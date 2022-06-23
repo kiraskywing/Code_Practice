@@ -1,5 +1,3 @@
-# The same as LeetCode no33. Search in Rotated Sorted Array
-
 class Solution:
     """
     @param A: an integer rotated sorted array
