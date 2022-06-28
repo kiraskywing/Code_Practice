@@ -1,5 +1,3 @@
-# The same as LeetCode no146. LRU Cache
-
 class Node:
     def __init__(self, key, val, prev=None, next=None):
         self.key = key

@@ -1,5 +1,3 @@
-# The same as LeetCode no.23 Merge k Sorted Lists
-
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):

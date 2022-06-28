@@ -1,6 +1,5 @@
 import heapq
 
-
 class Solution:
     """
     @param n: An integer
