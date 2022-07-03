@@ -14,4 +14,4 @@ class Solution:
                 dp_up[i] = dp_up[i - 1]
                 dp_down[i] = dp_down[i - 1]
         
-        return res
+        return max(dp_up[-1], dp_down[-1])
