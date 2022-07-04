@@ -1,5 +1,3 @@
-# The same as LeetCode no281. Zigzag Iterator
-
 class ZigzagIterator:
     def __init__(self, v1: List[int], v2: List[int]):
         self.queue = collections.deque([])

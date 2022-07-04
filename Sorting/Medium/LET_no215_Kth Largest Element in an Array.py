@@ -1,5 +1,3 @@
-# The same as LeetCode no.215 Kth Largest Element in an Array
-
 class Solution:
     """
     @param n: An integer

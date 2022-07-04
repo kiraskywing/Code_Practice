@@ -43,9 +43,6 @@ class Solution:
                 head_2 = head_2.next
             cur = cur.next
 
-        if head_1:
-            cur.next = head_1
-        if head_2:
-            cur.next = head_2
+        cur.next = head_1 if head_1 else head_2
 
         return dummy.next

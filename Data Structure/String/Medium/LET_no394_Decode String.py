@@ -1,5 +1,3 @@
-# The same as Lintcode no.575_Decode String
-
 class Solution:
     def decodeString(self, s: str) -> str:
         stack, num, cur_str = [], 0, ''

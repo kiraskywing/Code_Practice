@@ -1,5 +1,3 @@
-# The same as LeetCode no128. Longest Consecutive Sequence
-
 class Solution:
     """
     @param num: A list of integers

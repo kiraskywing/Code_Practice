@@ -13,3 +13,4 @@ class Solution:
                 res[i] = max(res[i], res[i + 1] + 1)
         
         return sum(res)
+            
