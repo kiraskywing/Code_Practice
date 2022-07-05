@@ -1,14 +1,13 @@
 class Node:
     def __init__(self, key, val):
-        self.key = key
-        self.val = val
-        self.freq = 1
+        self.key, self.val = key, val
         self.prev = self.next = None
+        self.freq = 1
 
-class DLinkedList:
+class DList:
     def __init__(self):
         self.dummy = Node(-1, -1)
-        self.dummy.next = self.dummy.prev = self.dummy
+        self.dummy.prev = self.dummy.next = self.dummy
         self.size = 0
     
     def __len__(self):
@@ -16,69 +15,68 @@ class DLinkedList:
     
     def append(self, node):
         tail = self.dummy.prev
-        node.prev = tail
-        tail.next = node
-        node.next = self.dummy
-        self.dummy.prev = node
+        tail.next, node.prev = node, tail
+        node.next, self.dummy.prev = self.dummy, node
         self.size += 1
     
     def pop(self, node=None):
-        if self.size == 0:
+        if len(self) == 0:
             return
-        
         if not node:
             node = self.dummy.next
-
-        prevNode, nextNode = node.prev, node.next
-        prevNode.next = nextNode
-        nextNode.prev = prevNode
+            
+        prev_node, next_node = node.prev, node.next
+        prev_node.next, next_node.prev = next_node, prev_node
         self.size -= 1
         
         return node
-        
+
 class LFUCache:
-    def __init__(self, capacity):
+
+    def __init__(self, capacity: int):
         self.capacity = capacity
-        
-        self.kMemo = dict() # key: Node
-        self.fMemo = collections.defaultdict(DLinkedList)
-        self.minFreq = 0
-        
-        
-    def update(self, node):
-        freq = node.freq
-        
-        self.fMemo[freq].pop(node)
-        if self.minFreq == freq and not self.fMemo[freq]:
-            self.minFreq += 1
-        
-        freq2 = freq + 1
-        node.freq = freq2
-        self.fMemo[freq2].append(node)
-    
-    def get(self, key):
-        if key not in self.kMemo:
+        self.key_to_node = dict()
+        self.freq_to_list = collections.defaultdict(DList)
+        self.min_freq = 0
+
+    def get(self, key: int) -> int:
+        if key not in self.key_to_node:
             return -1
         
-        node = self.kMemo[key]
-        self.update(node)
+        node = self.key_to_node[key]
+        self.updateFreq(node)
         return node.val
 
-    def put(self, key, value):
+    def put(self, key: int, value: int) -> None:
         if self.capacity == 0:
             return
-        
-        if key in self.kMemo:
-            node = self.kMemo[key]
-            self.update(node)
+        if key in self.key_to_node:
+            node = self.key_to_node[key]
+            self.updateFreq(node)
             node.val = value
             return
         
-        if len(self.kMemo) == self.capacity:
-            node = self.fMemo[self.minFreq].pop()
-            del self.kMemo[node.key]
+        if len(self.key_to_node) == self.capacity:
+            node = self.freq_to_list[self.min_freq].pop()
+            del self.key_to_node[node.key]
             
         node = Node(key, value)
-        self.kMemo[key] = node
-        self.fMemo[1].append(node)
-        self.minFreq = 1
+        self.key_to_node[key] = node
+        self.freq_to_list[1].append(node)
+        self.min_freq = 1
+    
+    def updateFreq(self, node):
+        freq = node.freq
+        self.freq_to_list[freq].pop(node)
+        if freq == self.min_freq and len(self.freq_to_list[freq]) == 0:
+            self.min_freq += 1
+        
+        freq += 1
+        node.freq = freq
+        self.freq_to_list[freq].append(node)
+
+
+# Your LFUCache object will be instantiated and called as such:
+# obj = LFUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
