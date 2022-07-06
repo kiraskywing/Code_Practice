@@ -1,5 +1,3 @@
-# The same as LeetCode no53. Maximum Subarray
-
 class Solution:
     """
     @param nums: A list of integers
