@@ -1,5 +1,3 @@
-# The same as LeetCode no4. Median of Two Sorted Arrays
-
 class Solution:
     """
     @param: A: An integer array
@@ -57,3 +55,6 @@ class Solution:
         if array[i] <= target:
             return i + 1
         return 0
+
+    # def counter(self, nums1, nums2, target):
+    #     return bisect.bisect(nums1, target) + bisect.bisect(nums2, target)

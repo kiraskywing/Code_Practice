@@ -1,5 +1,3 @@
-# The same as LeetCode no303. Range Sum Query - Immutable
-
 class NumArray(object):
 
     def __init__(self, nums):
