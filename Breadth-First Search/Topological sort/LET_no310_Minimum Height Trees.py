@@ -3,21 +3,20 @@ class Solution:
         if n == 1:
             return [0]
         
-        adj = [set() for _ in range(n)]
-        for i, j in edges:
-            adj[i].add(j)
-            adj[j].add(i)
+        connections = [set() for _ in range(n)]
+        for a, b in edges:
+            connections[a].add(b)
+            connections[b].add(a)
         
-        leaves = [i for i in range(n) if len(adj[i]) == 1]
-        
+        leaves = [i for i in range(n) if len(connections[i]) == 1]
         while n > 2:
             n -= len(leaves)
-            newLeaves = []
+            next_leaves = []
             for i in leaves:
-                j = adj[i].pop()
-                adj[j].remove(i)
-                if len(adj[j]) == 1:
-                    newLeaves.append(j)
-            leaves = newLeaves
+                j = connections[i].pop()
+                connections[j].remove(i)
+                if len(connections[j]) == 1:
+                    next_leaves.append(j)
+            leaves = next_leaves
         
         return leaves
