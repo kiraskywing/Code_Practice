@@ -13,10 +13,9 @@ class Solution:
         
         while queue:
             n = len(queue)
+            res.append(queue[-1].val)
             for i in range(n):
                 cur = queue.popleft()
-                if i == n - 1:
-                    res.append(cur.val)
                 if cur.left:
                     queue.append(cur.left)
                 if cur.right:
