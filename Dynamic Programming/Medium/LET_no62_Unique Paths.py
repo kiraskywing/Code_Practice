@@ -1,5 +1,3 @@
-# The same as LeetCode no62. Unique Paths
-
 class Solution:
     """
     @param m: positive integer (1 <= m <= 100)
