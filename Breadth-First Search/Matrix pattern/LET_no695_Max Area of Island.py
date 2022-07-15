@@ -1,26 +1,26 @@
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        res = []
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if grid[i][j]: self.bfs(grid, res, i, j)
-        
-        return max(res) if res else 0
-    
-    def bfs(self, grid, res, i, j):
+        res = 0
         m, n = len(grid), len(grid[0])
-        cur = 1
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == 1:
+                    res = max(res, self.bfs(grid, i, j, m, n))
+        
+        return res
+    
+    def bfs(self, grid, i, j, m, n):
+        queue = collections.deque([(i, j)])
         grid[i][j] = 0
-        queue = collections.deque([])
-        queue.append((i, j))
+        count = 1
         
         while queue:
-            x, y = queue.popleft()
-            for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
-                x2, y2 = x + dx, y + dy
-                if 0 <= x2 < m and 0 <= y2 < n and grid[x2][y2]:
-                    cur += 1
-                    grid[x2][y2] = 0
-                    queue.append((x2, y2))
+            i, j = queue.popleft()
+            for di, dj in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                i2, j2 = i + di, j + dj
+                if 0 <= i2 < m and 0 <= j2 < n and grid[i2][j2] == 1:
+                    grid[i2][j2] = 0
+                    count += 1
+                    queue.append((i2, j2))
         
-        res.append(cur)
+        return count

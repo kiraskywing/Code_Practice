@@ -1,5 +1,3 @@
-# The same as LeetCode no64. Minimum Path Sum
-
 class Solution:
     """
     @param grid: a list of lists of integers

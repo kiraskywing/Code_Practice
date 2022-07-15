@@ -1,5 +1,3 @@
-# The same as Leetcode no98. Validate Binary Search Tree
-
 """
 Definition of TreeNode:
 class TreeNode:

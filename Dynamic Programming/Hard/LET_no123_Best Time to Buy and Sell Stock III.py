@@ -1,5 +1,3 @@
-# the same as LeetCode no.151 Best Time to Buy and Sell Stock III
-
 class Solution:
     """
     @param prices: Given an integer array
@@ -18,3 +16,18 @@ class Solution:
             release1 = max(release1, hold1 + p)
             hold1 = max(hold1, -p)
         return release2
+
+class Solution2:
+    def maxProfit(self, prices: List[int]) -> int:
+        n = len(prices)
+        dp = [[0] * n for _ in range(2)]
+        prev, cur = 1, 0
+        
+        for _ in range(2):
+            prev, cur = cur, prev
+            buy_price = -prices[0]
+            for j in range(1, n):
+                dp[cur][j] = max(dp[cur][j - 1], buy_price + prices[j])
+                buy_price = max(buy_price, dp[prev][j - 1] - prices[j])
+        
+        return dp[cur][-1]

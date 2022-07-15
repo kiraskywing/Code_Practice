@@ -1,5 +1,3 @@
-# The same as LeetCode no122. Best Time to Buy and Sell Stock II
-
 class Solution:
     """
     @param prices: Given an integer array
