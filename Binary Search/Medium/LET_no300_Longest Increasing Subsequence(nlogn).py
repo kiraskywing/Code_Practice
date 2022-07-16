@@ -1,5 +1,3 @@
-# The same as LeetCode no300. Longest Increasing Subsequence
-
 class Solution:
     """
     @param nums: An integer array
