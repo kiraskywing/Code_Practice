@@ -1,5 +1,3 @@
-# The same as LeetCode no403. Frog Jump
-
 class Solution:
     def canCross(self, stones: List[int]) -> bool:
         memo = {stone:set() for stone in stones}

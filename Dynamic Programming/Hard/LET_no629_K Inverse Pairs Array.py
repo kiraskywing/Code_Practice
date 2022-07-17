@@ -13,3 +13,5 @@ class Solution:
                 dp[i][j] %= mod
         
         return dp[n][k]
+
+# https://leetcode.com/problems/k-inverse-pairs-array/discuss/104815/Java-DP-O(nk)-solution

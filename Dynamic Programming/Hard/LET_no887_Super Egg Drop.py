@@ -8,3 +8,5 @@ class Solution:
             if dp[steps][k] >= n:
                 return steps
         return 0
+
+# https://leetcode.com/problems/super-egg-drop/discuss/158974/C%2B%2BJavaPython-2D-and-1D-DP-O(KlogN)

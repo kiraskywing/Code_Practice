@@ -1,5 +1,3 @@
-# The same as LeetCode no45. Jump Game II
-
 class Solution:
     """
     @param A: A list of integers
