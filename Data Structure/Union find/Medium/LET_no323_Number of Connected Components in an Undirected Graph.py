@@ -15,6 +15,16 @@ class UnionFind:
             self.parent[i] = self.find(self.parent[i])
         return self.parent[i]
     
+    # def find(self, i):
+    #     res = i
+    #     while self.parent[res] != res:
+    #         res = self.parent[res]
+    #     while self.parent[i] != res:
+    #         i2 = self.parent[i]
+    #         self.parent[i] = res
+    #         i = i2
+    #     return res
+    
     def union(self, i, j):
         pi, pj = self.find(i), self.find(j)
         if pi != pj:

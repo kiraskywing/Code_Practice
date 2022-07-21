@@ -12,6 +12,16 @@ class ConnectingGraph3:
         if self.parent[i] != i:
             self.parent[i] = self.find(self.parent[i])
         return self.parent[i]
+
+    def find(self, i):
+        res = i
+        while self.parent[res] != res:
+            res = self.parent[res]
+        while self.parent[i] != res:
+            i2 = self.parent[i]
+            self.parent[i] = res
+            i = i2
+        return res
     
     def connect(self, a, b):
         pa, pb = self.find(a), self.find(b)

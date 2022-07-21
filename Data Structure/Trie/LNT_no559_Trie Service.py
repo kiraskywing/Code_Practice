@@ -27,11 +27,7 @@ class TrieService:
             cur = cur.children[c]
             cur.top10.append(frequency)
             
-            n = len(cur.top10)
-            i = n - 1
-            while i > 0 and cur.top10[i - 1] < frequency:
-                cur.top10[i] = cur.top10[i - 1]
-                i -= 1
-            cur.top10[i] = frequency
-            if n > 10:
+            cur.top10.append(frequency)
+            cur.top10.sort(reverse=True)
+            if len(cur.top10) > 10:
                 cur.top10.pop()

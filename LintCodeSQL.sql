@@ -455,3 +455,10 @@ select * from `teachers` where `id` = 3 lock in share mode;
 CREATE VIEW v_teachers
 AS
 SELECT * FROM teachers where age < 30
+
+-- no2806 · MySQL Stored Procedure IN Parameters I
+create procedure  teacher (in countryName  varchar(25))
+begin
+SELECT * from teachers where country=countryName;
+end;
+call teacher('CN');
