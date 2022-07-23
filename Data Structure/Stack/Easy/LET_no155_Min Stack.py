@@ -1,5 +1,3 @@
-# The same as LeetCode no155. Min Stack
-
 class MinStack:
 
     def __init__(self):
