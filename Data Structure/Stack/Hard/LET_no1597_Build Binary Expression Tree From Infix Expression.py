@@ -1,5 +1,3 @@
-# The same as LeetCode no1597. Build Binary Expression Tree From Infix Expression
-
 # Definition for a binary tree node.
 # class Node(object):
 #     def __init__(self, val=" ", left=None, right=None):
