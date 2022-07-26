@@ -34,3 +34,37 @@ class Solution:
         r_node = nums.pop()
         l_node = nums.pop()
         nums.append(Node(val=op, left=l_node, right=r_node))
+
+
+class Solution2:
+    def expTree(self, s: str) -> 'Node':
+        tokens = collections.deque(list(s))
+        return self.parser(tokens)
+    
+    def parser(self, tokens):
+        lhs = self.parseTerm(tokens)
+        while tokens and tokens[0] in "+-":
+            op = tokens.popleft()
+            rhs = self.parseTerm(tokens)
+            lhs = Node(val=op, left=lhs, right=rhs)
+            
+        return lhs
+    
+    def parseTerm(self, tokens):
+        lhs = self.parseFactor(tokens)
+        while tokens and tokens[0] in "*/":
+            op = tokens.popleft()
+            rhs = self.parseFactor(tokens)
+            lhs = Node(val=op, left=lhs, right=rhs)
+            
+        return lhs
+    
+    def parseFactor(self, tokens):
+        if tokens[0] == '(':
+            tokens.popleft()    # consume '('
+            node = self.parser(tokens)
+            tokens.popleft()    # consume ')'
+            return node
+        
+        cur = tokens.popleft()
+        return Node(val=cur)

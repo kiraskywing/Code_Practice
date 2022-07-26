@@ -19,3 +19,21 @@ class Solution:
         root.val += self.cur_sum
         self.cur_sum = root.val
         self.helper(root.left)
+
+class Solution2:
+    def convertBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        total = 0
+        
+        stack = []
+        node = root
+        while stack or node:
+            while node:
+                stack.append(node)
+                node = node.right
+            
+            node = stack.pop()
+            total += node.val
+            node.val = total
+            node = node.left
+        
+        return root
