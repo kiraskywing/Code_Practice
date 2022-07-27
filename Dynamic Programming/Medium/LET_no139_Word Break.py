@@ -1,5 +1,3 @@
-# The same as LeetCode no139. Word Break
-
 class Solution:
     """
     @param: s: A string

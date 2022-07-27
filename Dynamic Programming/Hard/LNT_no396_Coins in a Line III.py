@@ -1,3 +1,5 @@
+# Similar to LeetCode no.877 Stone Game
+
 from typing import (
     List,
 )

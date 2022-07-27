@@ -1,5 +1,3 @@
-# The same as LeetCode no114. Flatten Binary Tree to Linked List
-
 """
 Definition of TreeNode:
 class TreeNode:
