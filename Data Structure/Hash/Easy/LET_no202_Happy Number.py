@@ -11,4 +11,4 @@ class Solution:
                 break
             memo.add(n)
             
-        return True if n == 1 else False
+        return n == 1

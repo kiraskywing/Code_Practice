@@ -1,5 +1,3 @@
-# The same as LeetCode no108. Convert Sorted Array to Binary Search Tree
-
 """
 Definition of TreeNode:
 class TreeNode:

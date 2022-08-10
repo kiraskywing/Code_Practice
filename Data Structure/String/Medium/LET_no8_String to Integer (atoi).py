@@ -1,5 +1,3 @@
-# The same as LeetCode no8. String to Integer (atoi)
-
 class Solution:
     def myAtoi(self, s: str) -> int:
         if not s:
