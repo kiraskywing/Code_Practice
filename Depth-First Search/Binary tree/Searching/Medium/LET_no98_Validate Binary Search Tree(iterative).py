@@ -1,43 +1,35 @@
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
-
-
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    """
-    @param root: The root of binary tree.
-    @return: True if the binary tree is BST, or false
-    """
-
-    def isValidBST(self, root):
-
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
         if not root:
             return True
-
+        
         stack = []
-
         while root:
             stack.append(root)
             root = root.left
-
-        last_node = stack[-1]
-
+            
+        prev = None
         while stack:
-            node = stack.pop()
-
-            if node.right:
-                node = node.right
-                while node:
-                    stack.append(node)
-                    node = node.left
-
-            if stack:
-                if stack[-1].val <= last_node.val:
-                    return False
-                last_node = stack[-1]
-
+            cur = stack[-1]
+            if prev and prev.val >= cur.val:
+                return False
+            
+            if cur.right:
+                nxt = cur.right
+                while nxt:
+                    stack.append(nxt)
+                    nxt = nxt.left
+            else:
+                node = stack.pop()
+                while stack and stack[-1].right is node:
+                    node = stack.pop()
+                    
+            prev = cur
+        
         return True
