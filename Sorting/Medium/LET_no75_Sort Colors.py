@@ -1,5 +1,3 @@
-# the same as LeetCode no75. Sort Colors
-
 class Solution:
     """
     @param nums: A list of integer which is 0, 1 or 2
