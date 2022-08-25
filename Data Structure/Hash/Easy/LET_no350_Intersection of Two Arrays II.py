@@ -1,20 +1,14 @@
 class Solution:
-    """
-    @param nums1: an integer array
-    @param nums2: an integer array
-    @return: an integer array
-    """
-
-    def intersection(self, nums1, nums2):
-        memo = collections.defaultdict(int)
-        result = []
-
-        for i in nums1:
-            memo[i] += 1
-
-        for j in nums2:
-            memo[j] -= 1
-            if memo[j] >= 0:
-                result.append(j)
-
-        return result
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        m, n = len(nums1), len(nums2)
+        if m > n:
+            return self.intersect(nums2, nums1)
+        
+        memo = collections.Counter(nums1)
+        res = []
+        for num in nums2:
+            if memo[num] > 0:
+                res.append(num)
+                memo[num] -= 1
+        
+        return res

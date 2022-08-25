@@ -43,10 +43,12 @@ class Solution3:
         """
         i, j = m - 1, n - 1
         for k in range(m + n - 1, -1, -1):
-            if j < 0 or (i >= 0 and j >= 0 and nums1[i] >= nums2[j]):
-                nums1[k] = nums1[i]
-                i -= 1
-            elif i < 0 or (i >= 0 and j >= 0 and nums2[j] > nums1[i]):
+            if j < 0:
+                break
+            if i < 0 or nums2[j] > nums1[i]:
                 nums1[k] = nums2[j]
                 j -= 1
+            else:
+                nums1[k] = nums1[i]
+                i -= 1
                 
