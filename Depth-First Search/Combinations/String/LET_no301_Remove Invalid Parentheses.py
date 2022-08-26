@@ -1,5 +1,3 @@
-# The same as LeetCode no301. Remove Invalid Parentheses
-
 class Solution:
     """
     @param s: The input string
@@ -49,40 +47,47 @@ class Solution:
 
 class Solution2:
     def removeInvalidParentheses(self, s: str) -> List[str]:
-        left_remove = right_remove = 0
-        for c in s:
-            if c == '(':
-                left_remove += 1
-            elif c == ')':
-                if left_remove > 0:
-                    left_remove -= 1
-                else:
-                    right_remove += 1
-        
-        res = set()
-        self.dfs(s, 0, 0, 0, left_remove, right_remove, [], res)
+        lefts, rights = self.countRemoves(s)
+        res = []
+        self.helper(s, 0, lefts, rights, [], res)
         return list(res)
     
-    def dfs(self, s, i, left, right, left_remove, right_remove, temp, res):
-        if i == len(s):
-            if left == right:
-                res.add(''.join(temp))
+    def helper(self, s, start, lefts, rights, temp, res):
+        if lefts == 0 and rights == 0:
+            cur = ''.join(s[i:j] for i, j in temp) + s[start:]
+            if self.valid(cur):
+                res.append(cur)
             return
         
-        if s[i] == '(':
-            if left_remove > 0:
-                self.dfs(s, i + 1, left, right, left_remove - 1, right_remove, temp, res)
-            temp.append('(')
-            self.dfs(s, i + 1, left + 1, right, left_remove, right_remove, temp, res)
-            temp.pop()
-        elif s[i] == ')':
-            if right_remove > 0:
-                self.dfs(s, i + 1, left, right, left_remove, right_remove - 1, temp, res)
-            if left > right:
-                temp.append(')')
-                self.dfs(s, i + 1, left, right + 1, left_remove, right_remove, temp, res)
+        if lefts < 0 or rights < 0:
+            return
+        
+        for i in range(start, len(s)):
+            if i > start and s[i] == s[i - 1]:
+                continue
+                
+            if s[i] == '(':
+                temp.append((start, i))
+                self.helper(s, i + 1, lefts - 1, rights, temp, res)
                 temp.pop()
-        else:
-            temp.append(s[i])
-            self.dfs(s, i + 1, left, right, left_remove, right_remove, temp, res)
-            temp.pop()
+            elif s[i] == ')':
+                temp.append((start, i))
+                self.helper(s, i + 1, lefts, rights - 1, temp, res)
+                temp.pop()
+        
+    def valid(self, s):
+        lefts, rights = self.countRemoves(s)
+        return lefts == 0 and rights == 0
+    
+    def countRemoves(self, s):
+        lefts = rights = 0
+        for c in s:
+            if c == '(':
+                lefts += 1
+            elif c == ')':
+                if lefts > 0:
+                    lefts -= 1
+                else:
+                    rights += 1
+        
+        return lefts, rights
