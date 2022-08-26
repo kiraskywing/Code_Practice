@@ -1,19 +1,16 @@
 class Solution:
-    def findDiagonalOrder(self, matrix: List[List[int]]) -> List[int]:
-        if not matrix:
-            return []
-        
-        m, n = len(matrix), len(matrix[0])
-        rec = collections.defaultdict(list)
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+        memo = collections.defaultdict(list)
+        m, n = len(mat), len(mat[0])
         for i in range(m):
             for j in range(n):
-                rec[i + j].append(matrix[i][j])
-        
+                memo[i + j].append(mat[i][j])
+                
         res = []
-        for key in sorted(rec):
+        for key in range(m + n - 1):
             if key % 2 == 0:
-                res.extend(reversed(rec[key]))
+                res.extend(reversed(memo[key]))
             else:
-                res.extend(rec[key])
+                res.extend(memo[key])
         
         return res
