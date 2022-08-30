@@ -61,3 +61,25 @@ class LRUCache:
 # obj = LRUCache(capacity)
 # param_1 = obj.get(key)
 # obj.put(key,value)
+
+class LRUCache2:
+
+    def __init__(self, capacity: int):
+        self.memo = collections.OrderedDict()
+        self.capacity = capacity
+
+    def get(self, key: int) -> int:
+        if key not in self.memo:
+            return -1
+        
+        self.memo.move_to_end(key)
+        return self.memo[key]
+
+    def put(self, key: int, value: int) -> None:
+        if key not in self.memo:
+            self.memo[key] = value
+            if len(self.memo) > self.capacity:
+                self.memo.popitem(last=False)
+        else:
+            self.memo.move_to_end(key)
+            self.memo[key] = value
