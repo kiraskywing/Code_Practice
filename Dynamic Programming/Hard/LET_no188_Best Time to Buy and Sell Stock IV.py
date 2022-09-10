@@ -19,7 +19,7 @@ class Solution:
                 dp[cur][j] = max(dp[cur][j - 1], buy_price + prices[j])
                 buy_price = max(buy_price, dp[prev][j - 1] - prices[j])
         
-        return dp[-1][-1]
+        return dp[cur][-1]
     
     def quickSolve(self, prices):
         profit = 0
