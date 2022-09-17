@@ -2,18 +2,20 @@ class Solution:
     def palindromePairs(self, words: List[str]) -> List[List[int]]:
         memo = {w:i for i, w in enumerate(words)}
         res = []
-        for index, w in enumerate(words):
-            n = len(w)
-            for i in range(n + 1):
-                pre = w[:i]
-                sur = w[i:]
-                if pre == pre[::-1]:
-                    front = sur[::-1]
-                    if front in memo and memo[front] != index:
-                        res.append([memo[front], index])
-                if i != n and sur == sur[::-1]:
-                    tail = pre[::-1]
-                    if tail in memo and memo[tail] != index:
-                        res.append([index, memo[tail]])
+        
+        for i, w in enumerate(words):
+            for j in range(len(w) + 1):
+                prefix = w[:j]
+                surfix = w[j:]
+                
+                if prefix == prefix[::-1]:
+                    front = surfix[::-1]
+                    if front in memo and memo[front] != i:
+                        res.append([memo[front], i])
+                    
+                if surfix and surfix == surfix[::-1]:
+                    tail = prefix[::-1]
+                    if tail in memo and memo[tail] != i:
+                        res.append([i, memo[tail]])
         
         return res
