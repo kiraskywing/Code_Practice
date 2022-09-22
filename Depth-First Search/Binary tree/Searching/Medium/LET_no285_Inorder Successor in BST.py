@@ -1,5 +1,3 @@
-# The same as LeetCode no285. Inorder Successor in BST
-
 """
 Definition for a binary tree node.
 class TreeNode(object):
