@@ -1,5 +1,3 @@
-# The same as Leetcode no111. Minimum Depth of Binary Tree
-
 """
 Definition of TreeNode:
 class TreeNode:
@@ -44,5 +42,23 @@ class Solution2:
         if root.right:
             self.dfs(root.right, depth + 1)
 
-
+class Solution3:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        
+        depth = 1
+        queue = collections.deque([root])
+        while queue:
+            for _ in range(len(queue)):
+                cur = queue.popleft()
+                if not cur.left and not cur.right:
+                    return depth
+                if cur.left:
+                    queue.append(cur.left)
+                if cur.right:
+                    queue.append(cur.right)
+            depth += 1
+        
+        return -1
 
