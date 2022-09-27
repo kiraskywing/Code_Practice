@@ -36,3 +36,35 @@ class Solution:
             return right_level, right_node
         
         return level, root                      # No left and right child
+
+class Solution2:
+    def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+        # empty input? => no
+        
+        # Approach: recursive dfs
+        # create gobal variables: res_node, depth, level_pos
+        # To find: (1) the depthest node -> (2) the leftmost node
+        # traverse all nodes => once find a node with (1) deeper depth -> (2) lefter pos
+        #                    => update the res_node
+        # helper funciont arguments: node, depth, pos
+        
+        self.res_depth, self.res_pos = 0, float('inf')
+        self.res_node = None
+        self.helper(root, 0, 0)   # Time: O(n), Space: O(h)
+        return self.res_node.val
+    
+    def helper(self, root, depth, pos):
+        if not root.left and not root.right:
+            if depth > self.res_depth:
+                self.res_depth, self.res_pos = depth, pos
+                self.res_node = root
+            elif depth == self.res_depth and pos < self.res_pos:
+                self.res_pos = pos
+                self.res_node = root
+                
+            return
+        
+        if root.left:
+            self.helper(root.left, depth + 1, pos - 1)
+        if root.right:
+            self.helper(root.right, depth + 1, pos + 1)

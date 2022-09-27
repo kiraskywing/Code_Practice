@@ -1,5 +1,3 @@
-# The same as LeetCode no124. Binary Tree Maximum Path Sum
-
 """
 Definition of TreeNode:
 class TreeNode:
