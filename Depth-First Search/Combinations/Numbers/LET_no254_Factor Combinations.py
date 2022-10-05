@@ -1,5 +1,3 @@
-# The same as LeetCode no254. Factor Combinations
-
 class Solution:
     """
     @param n: An integer
