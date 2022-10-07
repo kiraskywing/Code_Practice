@@ -23,7 +23,7 @@ class Solution:
         
         for nei in graph[cur]:
             if rank[nei] == depth - 1:
-                continue
+                continue    # don't immmediately go back to parent.
             back_depth = self.dfs(nei, depth + 1, max_depth, graph, edges, rank)
             if back_depth <= depth:
                 edges.remove(tuple(sorted((cur, nei))))
