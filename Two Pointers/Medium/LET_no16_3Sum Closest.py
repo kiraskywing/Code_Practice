@@ -1,5 +1,3 @@
-# The same as LeetCode no16. 3Sum Closest
-
 class Solution:
     """
     @param Numbers: Give an array Numbers of n integer
