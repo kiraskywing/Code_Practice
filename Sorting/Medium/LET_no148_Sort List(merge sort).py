@@ -1,5 +1,3 @@
-# The same problem as Leetcode 148. Sort List
-
 """
 Definition of ListNode
 class ListNode(object):

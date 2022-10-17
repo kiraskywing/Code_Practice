@@ -1,5 +1,3 @@
-# The same as LeetCode no203. Remove Linked List Elements
-
 """
 Definition of ListNode
 class ListNode(object):
