@@ -1,12 +1,8 @@
 class Solution:
-    """
-    @param prices: Given an integer array
-    @return: Maximum profit
-    """
-    def maxProfit(self, prices):
-        max_profit = 0
-        buy_price = sys.maxsize
-        for i in prices:
-            buy_price = min(buy_price, i)
-            max_profit = max(max_profit, i - buy_price)
-        return max_profit
+    def maxProfit(self, prices: List[int]) -> int:
+        buy, profit = prices[0], 0
+        for i in range(1, len(prices)):
+            profit = max(profit, prices[i] - buy)
+            buy = min(buy, prices[i])
+        
+        return profit

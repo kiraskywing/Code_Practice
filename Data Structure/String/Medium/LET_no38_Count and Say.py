@@ -1,22 +1,18 @@
 class Solution:
     def countAndSay(self, n: int) -> str:
-        res = ""
-        for i in range(n):
-            if i == 0:
-                res = "1"
-            else:
-                temp = []
-                count = 0
-                cur = None
-                for c in res:
-                    if cur is None:
-                        cur = c
-                    if cur == c:
-                        count += 1
-                    else:
-                        temp.append(str(count) + cur)
-                        cur = c
-                        count = 1      
-                res = ''.join(temp) + str(count) + cur
-                
-        return res
+        s = '1'
+        for _ in range(n - 1):
+            s2 = []
+            left = 0
+            m = len(s)
+            
+            while left < m:
+                right = left
+                while right < m and s[right] == s[left]:
+                    right += 1
+                s2.extend([str(right - left), s[left]])
+                left = right
+            
+            s = ''.join(s2)
+        
+        return s
