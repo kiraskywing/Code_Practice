@@ -1,7 +1,6 @@
 class Solution {
 public:
     int shortestPath(vector<vector<int>> &grid, int k) {
-        const int dx[] = {-1, 0, 0, 1}, dy[] = {0, -1, 1, 0};
         int m = grid.size(), n = grid[0].size(), step = 0;
         vector<vector<int>> remains(m, vector<int>(n, INT_MIN));
         vector<vector<int>> shifts = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
