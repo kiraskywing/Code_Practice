@@ -1,5 +1,3 @@
-# The same as LeetCode no26. Remove Duplicates from Sorted Array
-
 class Solution:
     """
     @param: nums: An ineger array
