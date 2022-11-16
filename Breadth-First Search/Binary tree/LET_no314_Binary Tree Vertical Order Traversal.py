@@ -11,13 +11,39 @@ class Solution:
         
         memo = collections.defaultdict(list)
         queue = collections.deque([(root, 0)])
-        
+        left = right = 0
         while queue:
-            cur, index = queue.popleft()
-            memo[index].append(cur.val)
-            if cur.left:
-                queue.append((cur.left, index - 1))
-            if cur.right:
-                queue.append((cur.right, index + 1))
+            for _ in range(len(queue)):
+                node, idx = queue.popleft()
+                left = min(left, idx)
+                right = max(right, idx)
+                memo[idx].append(node.val)
+                if node.left:
+                    queue.append((node.left, idx - 1))
+                if node.right:
+                    queue.append((node.right, idx + 1))
         
-        return [memo[i] for i in sorted(memo)]
+        return [memo[idx] for idx in range(left, right + 1)]
+
+"""
+traverse a given binary tree from top to bottom, column by column.
+The same row and column: from left to right
+
+example 1:
+    3
+   / \
+  9   20
+     /  \
+    15   7
+Output: [[9],[3,15],[20],[7]]
+
+example 2:
+        3
+       / \
+      /   \
+     9     8
+    / \   / \
+   4  0  1   7
+Output: [[4],[9],[3,0,1],[8],[7]]
+
+"""

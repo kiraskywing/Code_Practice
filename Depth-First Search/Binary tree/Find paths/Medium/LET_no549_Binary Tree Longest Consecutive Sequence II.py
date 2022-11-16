@@ -29,4 +29,23 @@ class Solution:
                 decr = max(decr, right_decr + 1)
         
         return incr, decr, max(left_res, right_res, incr + decr - 1)
-        
+
+"""
+example 1:
+    1
+   / \
+  5   2
+     /  \
+    4    3
+Output: 3
+
+example 2:
+        3
+       / \
+      /   \
+     2     4
+    / \   / \
+   6   1 5   7
+Output: 5
+
+"""
