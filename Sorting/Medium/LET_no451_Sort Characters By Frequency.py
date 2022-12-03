@@ -1,12 +1,6 @@
 class Solution:
     def frequencySort(self, s: str) -> str:
-        table = collections.Counter(s)
-        sub = []
-        for k, v in table.items():
-            heapq.heappush(sub, (-v, k * v))
-        
-        res = ""
-        while sub:
-            _, string = heapq.heappop(sub)
-            res += string
-        return res
+        memo = collections.Counter(s)
+        pairs = [(c, val) for c, val in memo.items()]
+        pairs.sort(key=lambda x : -x[1])
+        return ''.join(c * val for c, val in pairs)
