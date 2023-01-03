@@ -1,5 +1,3 @@
-# The same as LeetCode no520. Detect Capital
-
 class Solution:
     def detectCapitalUse(self, word: str) -> bool:
         caps = 0

@@ -4,25 +4,30 @@ public:
         stringstream ss;
         ss << s;
         string cur;
-        vector<string> temp;
+        vector<string> words;
+
         while (ss >> cur)
-            temp.push_back(cur);
-        if (pattern.size() != temp.size())
+            words.push_back(cur);
+
+        if (words.size() != pattern.size())
             return false;
-        
-        unordered_map<char, string> c2s;
-        unordered_set<string> sUsed;
+
+        unordered_map<char, string> ch_to_word;
+        unordered_set<string> used_words;
+
         for (int i = 0; i < pattern.size(); i++) {
             char c = pattern[i];
-            cur = temp[i];
-            auto it1 = c2s.find(c);
-            auto it2 = sUsed.find(cur);
-            if (it1 != c2s.end() && it1->second != cur || it1 == c2s.end() && it2 != sUsed.end())
+            string cur = words[i];
+
+            auto it1 = ch_to_word.find(c);
+            auto it2 = used_words.find(cur);
+            if (it1 != ch_to_word.end() && it1->second != cur || it1 == ch_to_word.end() && it2 != used_words.end())
                 return false;
-            c2s[c] = cur;
-            sUsed.insert(cur);
+
+            ch_to_word[c] = cur;
+            used_words.insert(cur);
         }
-        
+
         return true;
     }
 };
