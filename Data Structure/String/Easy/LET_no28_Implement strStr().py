@@ -1,5 +1,3 @@
-# The same as LeetCode no28 Implement strStr()
-
 class Solution:
     """
     @param source: 

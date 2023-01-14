@@ -1,5 +1,3 @@
-# The same as Leetcode no.409 Longest Palindrome
-
 class Solution:
     def longestPalindrome(self, s: str) -> int:
         if not s:
