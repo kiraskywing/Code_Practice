@@ -1,5 +1,3 @@
-# The same as LeetCode no516. Longest Palindromic Subsequence
-
 class Solution:
     """
     @param s: the maximum length of s is 1000
