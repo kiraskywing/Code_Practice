@@ -12,6 +12,6 @@ class Solution:
             else:
                 left = mid
         
-        if nums[left] > nums[left + 1] and (left == 0 or nums[left - 1] < nums[left]):
+        if nums[left] > nums[right]:
             return left
         return right
