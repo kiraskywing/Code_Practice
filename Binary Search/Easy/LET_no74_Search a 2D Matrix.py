@@ -1,5 +1,3 @@
-# The same as Leetcode 74. Search a 2D Matrix
-
 class Solution:
     """
     @param matrix: matrix, a list of lists of integers
