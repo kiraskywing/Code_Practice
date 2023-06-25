@@ -1,5 +1,3 @@
-# The same as LeetCode no302. Smallest Rectangle Enclosing Black Pixels
-
 class Solution:
     def minArea(self, image: List[List[str]], x: int, y: int) -> int:
         up_row = self.searchRows(image, 0, x, True)

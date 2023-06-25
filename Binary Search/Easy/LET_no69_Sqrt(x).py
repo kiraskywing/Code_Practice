@@ -1,5 +1,3 @@
-# The same as LeetCode no69. Sqrt(x)
-
 class Solution:
     """
     @param x: An integer

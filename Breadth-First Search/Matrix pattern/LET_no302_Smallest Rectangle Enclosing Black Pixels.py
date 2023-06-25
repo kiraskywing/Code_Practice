@@ -1,5 +1,3 @@
-# The same as LeetCode no302. Smallest Rectangle Enclosing Black Pixels
-
 class Solution:
     """
     @param image: a binary matrix with '0' and '1'
