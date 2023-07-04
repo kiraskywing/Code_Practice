@@ -1,5 +1,3 @@
-# The same as LeetCode no969. Pancake Sorting
-
 class Solution:
     """
     @param array: an integer array
