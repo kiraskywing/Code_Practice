@@ -34,11 +34,11 @@ public:
             q.pop();
 
             if (!memo.count(cur))
-                memo[cur] = cur ? new Node(cur->val) : nullptr;
+                memo[cur] = (cur ? new Node(cur->val) : nullptr);
 
             for (Node* nei : cur->neighbors) {
                 if (!memo.count(nei)) {
-                    memo[nei] = nei ? new Node(nei->val) : nullptr;
+                    memo[nei] = (nei ? new Node(nei->val) : nullptr);
                     if (nei)
                         q.push(nei);
                 }
