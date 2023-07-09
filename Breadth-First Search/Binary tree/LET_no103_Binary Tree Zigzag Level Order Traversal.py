@@ -1,5 +1,3 @@
-# The same as LeetCode no103. Binary Tree Zigzag Level Order Traversal
-
 """
 Definition of TreeNode:
 class TreeNode:
