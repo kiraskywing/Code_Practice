@@ -1,5 +1,3 @@
-# The same as LeetCode no305. Number of Islands II
-
 class UnionFind:
     def __init__(self):
         self.parent = dict()
