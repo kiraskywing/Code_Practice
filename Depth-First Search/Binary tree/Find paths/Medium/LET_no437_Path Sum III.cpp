@@ -11,25 +11,24 @@
  */
 class Solution {
 private:
-    unordered_map<int, int> record;
-    int res;
+    int res = 0;
 public:
     int pathSum(TreeNode* root, int targetSum) {
-        record[0] = 1;
-        res = 0;
-        helper(root, targetSum, 0);
+        unordered_map<long, int> memo;
+        memo[0] = 1;
+        dfs(root, targetSum, memo, 0);
         return res;
     }
-    void helper(TreeNode* root, int targetSum, int preSum) {
+
+    void dfs(TreeNode* root, int targetSum, unordered_map<long, int>& memo, long pre_sum) {
         if (!root)
             return;
         
-        preSum += root->val;
-        if (record.count(preSum - targetSum))
-            res += record[preSum - targetSum];
-        record[preSum] += 1;
-        helper(root->left, targetSum, preSum);
-        helper(root->right, targetSum, preSum);
-        record[preSum] -= 1;
+        pre_sum += root->val;
+        res += memo[pre_sum - targetSum];
+        memo[pre_sum]++;
+        dfs(root->left, targetSum, memo, pre_sum);
+        dfs(root->right, targetSum, memo, pre_sum);
+        memo[pre_sum]--;
     }
 };
