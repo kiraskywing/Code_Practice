@@ -5,6 +5,24 @@
 #         self.left = left
 #         self.right = right
 class Solution:
+    """
+    @param root: A Tree
+    @return: Postorder in ArrayList which contains node values.
+    """
+    def postorderTraversal(self, root):
+        result = []
+        self.dfs(root, result)
+        return result
+
+    def dfs(self, root, result):
+        if not root:
+            return
+
+        self.dfs(root.left, result)
+        self.dfs(root.right, result)
+        result.append(root.val)
+
+class Solution2:
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         # empty input? => yes
         
@@ -32,7 +50,7 @@ class Solution:
             cur = stack.pop()
             res.append(cur.val)
             if stack and stack[-1].left is cur:
-                cur = cur.right
+                cur = stack[-1].right
                 while cur:
                     stack.append(cur)
                     if cur.left:

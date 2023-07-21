@@ -16,4 +16,3 @@ class Solution:
             max_for_all = max(max_for_all, max_len)
         
         return sum([n[1] for n in dp if n[0] == max_for_all])
-              
