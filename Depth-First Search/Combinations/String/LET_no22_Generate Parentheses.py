@@ -1,5 +1,3 @@
-# The same as Leetcode no.22 Generate Parentheses
-
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
         res = []
