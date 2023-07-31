@@ -1,5 +1,3 @@
-# The same as LeetCode no257. Binary Tree Paths
-
 """
 Definition of TreeNode:
 class TreeNode:
