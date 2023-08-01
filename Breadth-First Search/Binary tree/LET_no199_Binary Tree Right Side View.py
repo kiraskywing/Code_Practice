@@ -22,3 +22,21 @@ class Solution:
                     queue.append(cur.right)
         
         return res
+    
+class Solution2:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        self.max_level = 1
+        res = []
+        self.helper(root, 1, res)
+        return res
+
+    def helper(self, root, level, res):
+        if not root:
+            return
+
+        if level > self.max_level or level == 1:
+            res.append(root.val)
+            self.max_level = level
+
+        self.helper(root.right, level + 1, res)
+        self.helper(root.left, level + 1, res)

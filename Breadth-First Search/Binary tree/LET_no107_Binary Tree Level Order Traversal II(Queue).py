@@ -1,35 +1,27 @@
-# The same as LeetCode no107. Binary Tree Level Order Traversal II
-
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        self.val = val
-        self.left, self.right = None, None
-"""
-
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    """
-    @param root: A tree
-    @return: buttom-up level order a list of lists of integer
-    """
-    def levelOrderBottom(self, root):
-
+    def levelOrderBottom(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
-
-        result = []
+        
+        res = []
         queue = collections.deque([root])
-
         while queue:
             temp = []
-            for _ in range(len(queue)):
-                node = queue.popleft()
-                temp.append(node.val)
-                if node.left:
-                    queue.append(node.left)
-                if node.right:
-                    queue.append(node.right)
-            result.append(temp)
+            n = len(queue)
+            for _ in range(n):
+                cur = queue.popleft()
+                temp.append(cur.val)
+                if cur.left:
+                    queue.append(cur.left)
+                if cur.right:
+                    queue.append(cur.right)
+            res.append(temp[:])
 
-        return result[::-1]
+        res.reverse()
+        return res
