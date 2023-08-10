@@ -31,9 +31,7 @@ class Solution:
             else:
                 left = mid
         
-        if self.prefix_sum[right] <= target:
-            return right
-        return left
+        return right if self.prefix_sum[right] <= target else left
 
 
 # Your Solution object will be instantiated and called as such:
