@@ -30,5 +30,6 @@ class Solution:
                 
                 if self.dfs(maze, i2, j2, dest_i, dest_j, memo):
                     memo[(i, j)] = True
+                    break
         
         return memo[(i, j)]
