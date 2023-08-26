@@ -8,6 +8,4 @@ class Solution:
             else:
                 left = mid
         
-        if arr[right] > arr[left]:
-            return right
-        return left
+        return left if arr[left] > arr[right] else right
