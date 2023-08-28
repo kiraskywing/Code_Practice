@@ -1,9 +1,5 @@
 class Solution:
-    """
-    @param nums: a rotated sorted array
-    @return: the minimum number in the array
-    """
-    def findMin(self, nums):
+    def findMin(self, nums: List[int]) -> int:
         left, right = 0, len(nums) - 1
         while left + 1 < right:
             mid = (left + right) // 2
@@ -13,4 +9,5 @@ class Solution:
                 right = mid
             else:
                 left = mid
-        return min(nums[left], nums[right])
+        
+        return nums[left] if nums[left] < nums[right] else nums[right]

@@ -1,39 +1,41 @@
 class Solution:
     def minArea(self, image: List[List[str]], x: int, y: int) -> int:
-        up_row = self.searchRows(image, 0, x, True)
-        down_row = self.searchRows(image, x + 1, len(image) - 1, False)
-        left_col = self.searchCols(image, 0, y, True)
-        right_col = self.searchCols(image, y + 1, len(image[0]) - 1, False)
-        return (down_row - up_row) * (right_col - left_col)
-    
-    def searchRows(self, image, up, down, condition):
-        if up > down:
-            return down + 1
+        up = self.get_row_bound(image, 0, x, True)
+        down = self.get_row_bound(image, x + 1, len(image) - 1, False)
+        left = self.get_col_bound(image, 0, y, True)
+        right = self.get_col_bound(image, y + 1, len(image[0]) - 1, False)
+        return (down - up) * (right - left)
+
+    def get_row_bound(self, image, start, end, find_one):
+        if start > end:
+            return end + 1
         
-        while up + 1 < down:
-            mid = (up + down) // 2
-            if any(c == '1' for c in image[mid]) == condition:
-                down = mid
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if any('1' == pixel for pixel in image[mid]) == find_one:
+                end = mid
             else:
-                up = mid
-        if any(c == '1' for c in image[up]) == condition:
-            return up
-        if any(c == '1' for c in image[down]) == condition:
-            return down
-        return down + 1
-    
-    def searchCols(self, image, left, right, condition):
-        if left > right:
-            return right + 1
+                start = mid
         
-        while left + 1 < right:
-            mid = (left + right) // 2
-            if any(image[i][mid] == '1' for i in range(len(image))) == condition:
-                right = mid
+        if any('1' == pixel for pixel in image[start]) == find_one:
+            return start
+        if any('1' == pixel for pixel in image[end]) == find_one:
+            return end
+        return end + 1
+
+    def get_col_bound(self, image, start, end, find_one):
+        if start > end:
+            return end + 1
+        m = len(image)
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if any('1' == image[i][mid] for i in range(m)) == find_one:
+                end = mid
             else:
-                left = mid
-        if any(image[i][left] == '1' for i in range(len(image))) == condition:
-            return left
-        if any(image[i][right] == '1' for i in range(len(image))) == condition:
-            return right
-        return right + 1
+                start = mid
+        
+        if any('1' == image[i][start] for i in range(m)) == find_one:
+            return start
+        if any('1' == image[i][end] for i in range(m)) == find_one:
+            return end
+        return end + 1

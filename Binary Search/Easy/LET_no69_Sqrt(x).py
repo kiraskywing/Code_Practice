@@ -1,18 +1,11 @@
 class Solution:
-    """
-    @param x: An integer
-    @return: The sqrt of x
-    """
-
-    def sqrt(self, x):
-        start, end = 0, x
-        while start + 1 < end:
-            mid = (start + end) // 2
-            if mid * mid > x:
-                end = mid
+    def mySqrt(self, x: int) -> int:
+        left, right = 0, x
+        while left + 1 < right:
+            mid = (left + right) // 2
+            if x <= mid ** 2:
+                right = mid
             else:
-                start = mid
-
-        if end * end <= x:
-            return end
-        return start
+                left = mid
+        
+        return right if right ** 2 <= x else left

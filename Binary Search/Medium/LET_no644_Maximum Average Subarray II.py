@@ -1,33 +1,25 @@
 class Solution:
-    """
-    @param nums: an array with positive and negative Numbers
-    @param k: an integer
-    @return: the maximum average
-    """
-
-    def maxAverage(self, nums, k):
-        if not nums:
-            return 0
-
-        start, end = min(nums), max(nums)
-        while end - start > 1e-5:
-            mid = (start + end) / 2
-            if self.check_subarray(nums, k, mid):
-                start = mid
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        min_val, max_val = min(nums), max(nums)
+        while min_val + 1e-5 <= max_val:
+            mid = (min_val + max_val) / 2
+            if self.is_valid(nums, mid, k):
+                min_val = mid
             else:
-                end = mid
-        return start
+                max_val = mid
 
-    def check_subarray(self, nums, k, average):
-        cur, pre, pre_min = 0, 0, 0
-        for i in range(k - 1):
-            cur += nums[i] - average
-            
+        return max_val if self.is_valid(nums, max_val, k) else min_val
+
+    def is_valid(self, nums, avg, k):
+        cur = sum(nums[:k - 1]) - avg * (k - 1)
+        pre = pre_min = 0
+        
         for i in range(k - 1, len(nums)):
-            cur += nums[i] - average
+            cur += nums[i] - avg
             if cur - pre_min >= 0:
                 return True
-            pre += nums[i - k + 1] - average
+            
+            pre += nums[i - k + 1] - avg
             pre_min = min(pre_min, pre)
         
         return False
