@@ -1,5 +1,3 @@
-# The same as Leetcode no142 Linked List Cycle II
-
 """
 Definition of ListNode
 class ListNode(object):

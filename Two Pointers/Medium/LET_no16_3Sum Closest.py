@@ -1,23 +1,24 @@
 class Solution:
-    """
-    @param Numbers: Give an array Numbers of n integer
-    @param target: An integer
-    @return: return the sum of the three integers, the sum closest target.
-    """
-
-    def threeSumClosest(self, numbers, target):
-        numbers.sort()
-        ans = sys.maxsize
-        for i in range(len(numbers)):
-            left, right = i + 1, len(numbers) - 1
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        res = sum(nums[:3])
+        nums.sort()
+        n = len(nums)
+        
+        for i in range(n - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+            
+            left, right = i + 1, n - 1
             while left < right:
-                val = numbers[left] + numbers[right] + numbers[i]
-                if abs(val - target) < abs(ans - target):
-                    ans = val
-
-                if val > target:
-                    right -= 1
-                else:
+                cur = nums[i] + nums[left] + nums[right]
+                if cur == target:
+                    return cur
+                
+                if abs(target - cur) < abs(target - res):
+                    res = cur
+                if cur < target:
                     left += 1
-
-        return ans
+                else:
+                    right -= 1
+        
+        return res
