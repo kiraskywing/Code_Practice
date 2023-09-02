@@ -6,7 +6,7 @@ class Solution:
         for i in range(m):
             for j in range(n):
                 if board[i][j] == 0:
-                    queue.append(([row[:] for row in board], i, j))
+                    queue.append((copy.deepcopy(board), i, j))
                     break
                     
         steps = 0
@@ -24,7 +24,7 @@ class Solution:
                         key = str(cur)
                         if key not in visited:
                             visited.add(key)
-                            queue.append(([row[:] for row in cur], i2, j2))
+                            queue.append((copy.deepcopy(cur), i2, j2))
                         cur[i][j], cur[i2][j2] = cur[i2][j2], cur[i][j]
             steps += 1
         
