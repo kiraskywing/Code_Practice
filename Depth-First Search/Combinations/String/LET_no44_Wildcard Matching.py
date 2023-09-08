@@ -1,35 +1,26 @@
 class Solution:
-    """
-    @param s: A string
-    @param p: A string includes "?" and "*"
-    @return: is Match?
-    """
+    def isMatch(self, s: str, p: str) -> bool:
+        return self.helper(s, p, 0, 0, dict())
 
-    def isMatch(self, s, p):
-        return self.match_helper(s, 0, p, 0, {})
-
-    def match_helper(self, source, i, pattern, j, memo):
-
+    def helper(self, s, p, i, j, memo):
         if (i, j) in memo:
             return memo[(i, j)]
 
-        if i == len(source):
-            if j == len(pattern):
+        if i == len(s):
+            if j == len(p):
                 return True
             else:
-                return set(pattern[j:]) == set(["*"])
-
-        if j == len(pattern):
+                return set(p[j:]) == set('*')
+        
+        if j == len(p):
             return False
 
-        if pattern[j] != "*":
-            matched = self.match_char(source[i], pattern[j]) and self.match_helper(source, i + 1, pattern, j + 1, memo)
+        res = False
+        if p[j] == '*':
+            res = self.helper(s, p, i + 1, j, memo) or self.helper(s, p, i, j + 1, memo)
         else:
-            matched = self.match_helper(source, i + 1, pattern, j, memo) or self.match_helper(source, i, pattern, j + 1,
-                                                                                              memo)
+            res = (p[j] in ('?', s[i])) and self.helper(s, p, i + 1, j + 1, memo)
+        memo[(i, j)] = res
 
-        memo[(i, j)] = matched
-        return matched
-
-    def match_char(self, s, p):
-        return s == p or p == "?"
+        return res
+    
