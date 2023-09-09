@@ -12,11 +12,11 @@ class Solution:
         
         for num in memo:
             if memo[num] > 0:
-                 memo[num] -= 1
-                 temp.append(num)
-                 self.dfs(memo, n, temp, res)
-                 temp.pop()
-                 memo[num] += 1
+                memo[num] -= 1
+                temp.append(num)
+                self.dfs(memo, n, temp, res)
+                temp.pop()
+                memo[num] += 1
 
 class Solution2:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:

@@ -1,5 +1,3 @@
-# The same as LeetCode no51. N-Queens
-
 class Solution:
     """
     @param: n: The number of queens
