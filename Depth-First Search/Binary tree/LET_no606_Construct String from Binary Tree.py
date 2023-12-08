@@ -20,7 +20,7 @@ class Solution:
         
         res.append('(')
         self.dfs(cur.left, res)
-        res.append(")")
+        res.append(')')
         
         if cur.right:
             res.append('(')
