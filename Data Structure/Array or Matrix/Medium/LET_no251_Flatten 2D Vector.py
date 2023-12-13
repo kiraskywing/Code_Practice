@@ -1,5 +1,3 @@
-# The same as LeetCode no251. Flatten 2D Vector
-
 class Vector2D:
 
     def __init__(self, vec: List[List[int]]):
