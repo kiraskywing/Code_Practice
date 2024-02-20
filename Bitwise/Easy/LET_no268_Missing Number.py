@@ -1,4 +1,3 @@
-# The same as LeetCode no.268. Missing Number
 class Solution1:
     def missingNumber(self, nums: List[int]) -> int:
         res = len(nums)
