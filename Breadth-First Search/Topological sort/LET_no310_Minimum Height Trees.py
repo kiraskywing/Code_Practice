@@ -2,21 +2,26 @@ class Solution:
     def findMinHeightTrees(self, n: int, edges: List[List[int]]) -> List[int]:
         if n == 1:
             return [0]
-        
-        connections = [set() for _ in range(n)]
+
+        degree = [0 for _ in range(n)]
+        neighbors = collections.defaultdict(list)
         for a, b in edges:
-            connections[a].add(b)
-            connections[b].add(a)
+            neighbors[a].append(b)
+            neighbors[b].append(a)
+            degree[a] += 1
+            degree[b] += 1
+
+        queue = collections.deque([i for i in range(n) if degree[i] == 1])
+        res = None
+        while queue:
+            temp = []
+            for _ in range(len(queue)):
+                cur = queue.popleft()
+                temp.append(cur)
+                for neighbor in neighbors[cur]:
+                    degree[neighbor] -= 1
+                    if degree[neighbor] == 1:
+                        queue.append(neighbor)
+            res = temp
         
-        leaves = [i for i in range(n) if len(connections[i]) == 1]
-        while n > 2:
-            n -= len(leaves)
-            next_leaves = []
-            for i in leaves:
-                j = connections[i].pop()
-                connections[j].remove(i)
-                if len(connections[j]) == 1:
-                    next_leaves.append(j)
-            leaves = next_leaves
-        
-        return leaves
+        return res
