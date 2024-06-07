@@ -12,6 +12,29 @@ class Solution:
         if not root:
             return None
         
+        dummy = Node(-1, None, None)
+        prev = dummy
+        stack = []
+        node = root
+
+        while stack or node is not None:
+            while node:
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            prev.right, node.left = node, prev
+            prev = node
+            node = node.right
+
+        dummy.right.left, prev.right = prev, dummy.right
+
+        return dummy.right
+
+class Solution2:
+    def treeToDoublyList(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        if not root:
+            return None
+        
         left_head = self.treeToDoublyList(root.left)
         right_head = self.treeToDoublyList(root.right)
         root.left = root.right = root
